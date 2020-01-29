@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo hi
 git add ./
 git commit -m "Auto Sender"
 git push
