@@ -26,6 +26,7 @@ command_fn find_command_fn (const string& cmd) {
    if (result == cmd_hash.end()) {
       throw command_error (cmd + ": no such function");
    }
+   cout << "function?" << endl;
    return result->second;
 }
 
@@ -47,6 +48,7 @@ void fn_cat (inode_state& state, const wordvec& words){
 void fn_cd (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   cout << "cd?" << endl;
 }
 
 void fn_echo (inode_state& state, const wordvec& words){
