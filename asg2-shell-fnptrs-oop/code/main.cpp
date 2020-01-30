@@ -48,7 +48,7 @@ int main (int argc, char** argv) {
    scan_options (argc, argv);
    bool need_echo = want_echo();
    inode_state state;
-   cout << state << endl;
+   inode root(file_type::DIRECTORY_TYPE);
    try {
       for (;;) {
          try {
