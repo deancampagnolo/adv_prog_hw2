@@ -48,6 +48,7 @@ int main (int argc, char** argv) {
    scan_options (argc, argv);
    bool need_echo = want_echo();
    inode_state state;
+   cout << state << endl;
    try {
       for (;;) {
          try {
