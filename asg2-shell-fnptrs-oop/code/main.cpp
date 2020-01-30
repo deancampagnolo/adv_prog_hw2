@@ -50,6 +50,8 @@ int main (int argc, char** argv) {
    inode_state state;
    inode root(file_type::DIRECTORY_TYPE);
    cout << root.get_inode_nr() << endl;
+   inode test(file_type::DIRECTORY_TYPE);
+   cout << test.get_inode_nr() << endl;
    try {
       for (;;) {
          try {
