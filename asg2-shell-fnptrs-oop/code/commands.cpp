@@ -45,7 +45,9 @@ int exit_status_message() {
    return status;
 }
 
-void fn_comment () {
+void fn_comment (inode_state& state, const wordvec& words) {
+   DEBUGF ('c', state);
+   DEBUGF ('c', words);
    cout << "this was ignored because its a comment!" << endl;
 }
 
