@@ -75,6 +75,8 @@ class inode {
       base_file_ptr get_base_file_ptr() { return contents;}
       virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
       virtual inode_ptr get_parent() { return parent;}
+      virtual void set_base_file_inode(inode_ptr current_inode)
+         {contents->set_current_inode(current_inode);}
 };
 
 
@@ -92,6 +94,7 @@ class base_file {
    protected:
       base_file() = default;
       virtual const string& error_file_type() const = 0;
+      inode_ptr current_inode;
    public:
       virtual ~base_file() = default;
       base_file (const base_file&) = delete;
@@ -102,6 +105,8 @@ class base_file {
       virtual void remove (const string& filename);
       virtual inode_ptr mkdir (const string& dirname, inode_ptr parent);
       virtual inode_ptr mkfile (const string& filename);
+      virtual void set_current_inode (inode_ptr new_current_inode)
+         {current_inode = new_current_inode;}
 };
 
 // class plain_file -

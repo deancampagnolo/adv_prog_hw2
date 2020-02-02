@@ -100,6 +100,11 @@ void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
 }
 
+/*
+directory::directory() {
+   dirents.insert({".",})
+}
+*/
 
 size_t directory::size() const {
    size_t size {0};
