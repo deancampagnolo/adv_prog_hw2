@@ -33,14 +33,11 @@ inode_state::inode_state() {
 const string& inode_state::prompt() const { return prompt_; }
 
 ostream& operator<< (ostream& out, const inode_state& state) {
-   cout<<"hi"<<endl;
    if (state.root == NULL) {
       return out;
    }
-   cout<<"fuck"<<endl;
    out << "inode_state: root = " << state.root->get_inode_nr()
        << ", cwd = " << state.cwd->get_inode_nr() << ", cwd parent = "
-       // FIXME(me)
        << state.cwd->get_parent().lock()->get_inode_nr();
    return out;
 }
@@ -116,10 +113,11 @@ void plain_file::writefile (const wordvec& words) {
 
 void directory::insert_default_dirents() {
    cout<<"current_inode"<<current_inode<<endl;
-   //cout<<current_inode->get_parent()<<endl;
+   auto temp_parent = current_inode->get_parent().lock();
+   cout<<temp_parent<<endl;
 
    dirents.insert({".",current_inode});
-   //dirents.insert({"..",current_inode->get_parent()});
+   dirents.insert({"..",temp_parent});
 }
 
 
