@@ -112,6 +112,7 @@ void plain_file::writefile (const wordvec& words) {
 }
 
 directory::~directory() {
+   cout<<"destroyed"<<endl;
    for (auto pair : dirents) {
       pair.second = nullptr;
    }
