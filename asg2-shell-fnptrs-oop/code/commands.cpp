@@ -99,7 +99,11 @@ void fn_prompt (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
    cout <<"printing vector " <<words << endl;
-   state.set_prompt_(words.at(1));
+   string final_string = "";
+   for (int vector_index = 1; vector_index < words.size(); vector_index++) {
+      final_string = final_string.append(words.at(vector_index));
+   }
+   state.set_prompt_(final_string);
 }
 
 void fn_pwd (inode_state& state, const wordvec& words){
