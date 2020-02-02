@@ -46,7 +46,7 @@ int exit_status_message() {
 }
 
 void fn_comment (inode_state& state, const wordvec& words) {
-
+   cout << "this was ignored because its a comment!" << endl;
 }
 
 void fn_cat (inode_state& state, const wordvec& words){
