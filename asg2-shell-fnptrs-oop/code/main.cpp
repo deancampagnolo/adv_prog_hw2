@@ -51,10 +51,9 @@ int main (int argc, char** argv) {
 
    shared_ptr<inode> root =
       make_shared<inode>(file_type::DIRECTORY_TYPE);
-   cout << root->get_inode_nr() << endl;
-   cout << state << endl;
    state.set_root(root);
-   cout << state << endl;
+   state.set_cwd(root);
+
    try {
       for (;;) {
          try {
