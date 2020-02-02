@@ -116,7 +116,7 @@ inode_ptr directory::mkdir (const string& dirname, inode_ptr parent) {
       make_shared<inode>(file_type::DIRECTORY_TYPE);
    new_inode_ptr->set_parent(parent);
    dirents.insert({dirname,new_inode_ptr});
-   // TODO need to sort dirents
+   // TODO(me) need to sort dirents
    DEBUGF ('i', dirname);
    return nullptr;
 }
