@@ -108,7 +108,7 @@ class base_file {
       virtual inode_ptr mkfile (const string& filename);
       virtual void set_current_inode (inode_ptr new_current_inode)
          {current_inode = new_current_inode;}
-      virtual map<string,weak_ptr<inode>> get_dirents();
+      virtual map<string,inode_ptr> get_dirents();
       virtual void insert_default_dirents();
 };
 
@@ -155,7 +155,7 @@ class plain_file: public base_file {
 class directory: public base_file {
    private:
       // Must be a map, not unordered_map, so printing is lexicographic
-      map<string,weak_ptr<inode>> dirents;
+      map<string,inode_ptr> dirents;
       virtual const string& error_file_type() const override {
          static const string result = "directory";
          return result;
@@ -165,7 +165,7 @@ class directory: public base_file {
       virtual void remove (const string& filename) override;
       virtual inode_ptr mkdir (const string& dirname) override;
       virtual inode_ptr mkfile (const string& filename) override;
-      virtual map<string,weak_ptr<inode>> get_dirents() override { return dirents;}
+      virtual map<string,inode_ptr> get_dirents() override { return dirents;}
       virtual void insert_default_dirents() override;
 };
 

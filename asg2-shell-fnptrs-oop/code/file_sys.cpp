@@ -88,7 +88,7 @@ inode_ptr base_file::mkfile (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-map<string,weak_ptr<inode>> base_file::get_dirents() {
+map<string,inode_ptr> base_file::get_dirents() {
    throw file_error ("is a " + error_file_type());
 }
 
@@ -114,10 +114,10 @@ void plain_file::writefile (const wordvec& words) {
 
 void directory::insert_default_dirents() {
    auto temp_current_shared = current_inode.lock();
-   auto temp_parent_weak = temp_current_shared->get_parent();
+   auto temp_parent_shared = temp_current_shared->get_parent().lock();
 
-   dirents.insert({".",current_inode});
-   dirents.insert({"..",temp_parent_weak});
+   dirents.insert({".",temp_current_shared});
+   dirents.insert({"..",temp_parent_shared});
 }
 
 
