@@ -36,6 +36,10 @@ void inode_state::set_root(inode_ptr pointer) {
    root = pointer;
 }
 
+void inode_state::set_cwd(inode_ptr pointer) {
+   cwd = pointer;
+}
+
 ostream& operator<< (ostream& out, const inode_state& state) {
    out << "inode_state: root = " << state.root
        << ", cwd = " << state.cwd;
