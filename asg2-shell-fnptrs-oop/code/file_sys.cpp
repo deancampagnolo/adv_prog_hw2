@@ -61,7 +61,7 @@ int inode::get_inode_nr() const {
 
 void inode::set_base_file_inode(inode_ptr current_inode) { 
    contents->set_current_inode(current_inode);
-   //contents->insert_default_dirents();
+   contents->insert_default_dirents();
    }
 
 file_error::file_error (const string& what):
@@ -115,11 +115,9 @@ void plain_file::writefile (const wordvec& words) {
 void directory::insert_default_dirents() {
    auto temp_current = current_inode.lock();
    auto temp_parent = temp_current->get_parent().lock();
-   
-   cout<<temp_parent<<endl;
 
-   dirents.insert({".",temp_current});
-   dirents.insert({"..",temp_parent});
+   //dirents.insert({".",temp_current});
+   //dirents.insert({"..",temp_parent});
 }
 
 
