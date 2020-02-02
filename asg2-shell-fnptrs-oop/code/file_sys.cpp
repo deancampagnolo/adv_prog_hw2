@@ -113,10 +113,10 @@ void plain_file::writefile (const wordvec& words) {
 
 
 void directory::insert_default_dirents() {
-   auto temp_current = current_inode.lock();
-   auto temp_parent = temp_current->get_parent().lock();
+   //auto temp_current = current_inode.lock();
+   //auto temp_parent = temp_current->get_parent().lock();
 
-   //dirents.insert({".",temp_current});
+   dirents.insert({".",current_inode});
    //dirents.insert({"..",temp_parent});
 }
 
