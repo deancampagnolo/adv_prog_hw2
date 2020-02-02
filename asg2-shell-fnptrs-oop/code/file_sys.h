@@ -42,8 +42,10 @@ class inode_state {
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
       const string& prompt() const;
-      virtual void set_root(inode_ptr);
-      virtual void set_cwd(inode_ptr);
+      virtual void inode_state::set_root(inode_ptr pointer) {root = pointer;}
+      virtual void inode_state::set_cwd(inode_ptr pointer) {cwd = pointer;}
+      virtual inode_ptr inode_state::get_root() {return root;}
+      virtual inode_ptr inode_state::get_cwd() {return cwd;}
 };
 
 // class inode -
