@@ -26,7 +26,7 @@ ostream& operator<< (ostream& out, file_type type) {
 }
 
 inode_state::inode_state() {
-   DEBUGF ('i', "root = " << root->get_inode_nr() << ", cwd = " << cwd
+   DEBUGF ('i', "root = " << root << ", cwd = " << cwd
           << ", prompt = \"" << prompt() << "\"");
 }
 
@@ -41,7 +41,7 @@ void inode_state::set_cwd(inode_ptr pointer) {
 }
 
 ostream& operator<< (ostream& out, const inode_state& state) {
-   out << "inode_state: root = " << state.root
+   out << "inode_state: root = " << state.root->get_inode_nr()
        << ", cwd = " << state.cwd;
    return out;
 }
