@@ -111,6 +111,11 @@ void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
 }
 
+directory::~directory() {
+   for (auto pair : dirents) {
+      pair.second = nullptr;
+   }
+}
 
 void directory::insert_default_dirents() {
    auto temp_current_shared = current_inode.lock();

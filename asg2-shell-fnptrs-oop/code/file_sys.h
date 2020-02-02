@@ -161,6 +161,7 @@ class directory: public base_file {
          return result;
       }
    public:
+      ~directory() override;
       virtual size_t size() const override;
       virtual void remove (const string& filename) override;
       virtual inode_ptr mkdir (const string& dirname) override;
