@@ -57,7 +57,7 @@ int main (int argc, char** argv) {
    
    root->set_parent(root);
 
-   root->set_base_file_inode(root);
+   //root->set_base_file_inode(root);
 
 
    state.set_root(root);
