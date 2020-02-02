@@ -107,8 +107,11 @@ void plain_file::writefile (const wordvec& words) {
 
 
 directory::directory() {
+   /*
    dirents.insert({".",current_inode});
    dirents.insert({"..",current_inode->get_parent()});
+   */
+  cout<<"placehodler"<<endl;
 }
 
 
