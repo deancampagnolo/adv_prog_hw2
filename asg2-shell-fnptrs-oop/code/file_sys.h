@@ -68,10 +68,12 @@ class inode {
       static int next_inode_nr;
       int inode_nr;
       base_file_ptr contents;
+      inode_ptr parent;
    public:
       inode (file_type);
       int get_inode_nr() const;
       base_file_ptr get_base_file_ptr() { return contents;}
+      virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
 };
 
 
@@ -97,7 +99,7 @@ class base_file {
       virtual const wordvec& readfile() const;
       virtual void writefile (const wordvec& newdata);
       virtual void remove (const string& filename);
-      virtual inode_ptr mkdir (const string& dirname);
+      virtual inode_ptr mkdir (const string& dirname, inode_ptr parent);
       virtual inode_ptr mkfile (const string& filename);
 };
 
@@ -152,7 +154,7 @@ class directory: public base_file {
    public:
       virtual size_t size() const override;
       virtual void remove (const string& filename) override;
-      virtual inode_ptr mkdir (const string& dirname) override;
+      virtual inode_ptr mkdir (const string& dirname, inode_ptr parent) override;
       virtual inode_ptr mkfile (const string& filename) override;
 };
 

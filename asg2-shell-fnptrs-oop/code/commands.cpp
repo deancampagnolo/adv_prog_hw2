@@ -92,7 +92,7 @@ void fn_make (inode_state& state, const wordvec& words){
 void fn_mkdir (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   state.get_cwd_ptr()->get_base_file_ptr()->mkdir(words.at(1));
+   state.get_cwd_ptr()->get_base_file_ptr()->mkdir(words.at(1),state.get_cwd_ptr());
 }
 
 void fn_prompt (inode_state& state, const wordvec& words){

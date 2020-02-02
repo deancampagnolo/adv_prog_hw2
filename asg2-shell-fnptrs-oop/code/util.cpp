@@ -47,7 +47,7 @@ string append_from(long unsigned int start, vector<string> words) {
    }
    return final_string;
 }
-
+
 wordvec split (const string& line, const string& delimiters) {
    wordvec words;
    size_t end = 0;

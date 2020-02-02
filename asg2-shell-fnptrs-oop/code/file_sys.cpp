@@ -56,9 +56,8 @@ inode::inode(file_type type): inode_nr (next_inode_nr++) {
 int inode::get_inode_nr() const {
    DEBUGF ('i', "inode = " << inode_nr);
    return inode_nr;
-}
+}
 
-
 file_error::file_error (const string& what):
             runtime_error (what) {
 }
@@ -99,6 +98,10 @@ void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
 }
 
+directory::directory(){
+   //dirents.insert({".",})
+}
+
 size_t directory::size() const {
    size_t size {0};
    DEBUGF ('i', "size = " << size);
@@ -109,8 +112,12 @@ void directory::remove (const string& filename) {
    DEBUGF ('i', filename);
 }
 
-inode_ptr directory::mkdir (const string& dirname) {
+inode_ptr directory::mkdir (const string& dirname, inode_ptr parent) {
    cout<<"we here"<<endl;
+   inode_ptr new_inode_ptr = make_shared<inode>(file_type::DIRECTORY_TYPE);
+   new_inode_ptr->set_parent(parent);
+   dirents.insert({dirname,new_inode_ptr});
+   //TODO need to sort dirents
    DEBUGF ('i', dirname);
    return nullptr;
 }

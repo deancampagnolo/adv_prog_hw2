@@ -51,6 +51,7 @@ int main (int argc, char** argv) {
 
    shared_ptr<inode> root =
       make_shared<inode>(file_type::DIRECTORY_TYPE);
+   root->set_parent(root);
    state.set_root(root);
    state.set_cwd(root);
 
