@@ -60,7 +60,8 @@ int inode::get_inode_nr() const {
 }
 
 void inode::set_base_file_inode(inode_ptr current_inode) { 
-   contents->set_current_inode(current_inode);}
+   contents->set_current_inode(current_inode);
+   contents->refresh();}
 
 file_error::file_error (const string& what):
             runtime_error (what) {
@@ -90,6 +91,10 @@ inode_ptr base_file::mkfile (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
+void base_file::insert_default_dirents() {
+   throw file_error ("is a " + error_file_type());
+}
+
 size_t plain_file::size() const {
    size_t size {0};
    DEBUGF ('i', "size = " << size);
@@ -106,13 +111,12 @@ void plain_file::writefile (const wordvec& words) {
 }
 
 
-directory::directory() {
+void directory::insert_default_dirents() {
    cout<<"current_inode"<<current_inode<<endl;
    cout<<current_inode->get_parent()<<endl;
 
    dirents.insert({".",current_inode});
-   //dirents.insert({"..",current_inode->get_parent()});
-  cout<<"placehodler"<<endl;
+   dirents.insert({"..",current_inode->get_parent()});
 }
 
 
