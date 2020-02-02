@@ -120,7 +120,7 @@ directory::~directory() {
 void directory::insert_default_dirents() {
    auto temp_current_shared = current_inode.lock();
    auto temp_parent_shared = temp_current_shared->get_parent().lock();
-
+   cout<<"insert_default_dirents ran"<<endl;
    dirents.insert({".",temp_current_shared});
    dirents.insert({"..",temp_parent_shared});
 }
