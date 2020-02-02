@@ -4,5 +4,5 @@ cd ../..
 git pull
 cd asg2-shell-fnptrs-oop/code
 make
-yshell
+valgrind yshell
 
