@@ -46,7 +46,7 @@ class inode_state {
       virtual void set_cwd(inode_ptr pointer) {cwd = pointer;}
       virtual inode_ptr get_root() {return root;}
       virtual inode_ptr get_cwd() {return cwd;}
-      virtual void set_prompt_(string the_string) {prompt_ = the_string.append(" ");}
+      virtual void set_prompt_(string the_string) {prompt_ = the_string;}
 };
 
 // class inode -
