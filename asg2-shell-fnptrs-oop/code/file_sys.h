@@ -102,7 +102,7 @@ class base_file {
       virtual const wordvec& readfile() const;
       virtual void writefile (const wordvec& newdata);
       virtual void remove (const string& filename);
-      virtual inode_ptr mkdir (const string& dirname, inode_ptr parent);
+      virtual inode_ptr mkdir (const string& dirname);
       virtual inode_ptr mkfile (const string& filename);
       virtual void set_current_inode (inode_ptr new_current_inode)
          {current_inode = new_current_inode;}
@@ -159,7 +159,7 @@ class directory: public base_file {
    public:
       virtual size_t size() const override;
       virtual void remove (const string& filename) override;
-      virtual inode_ptr mkdir (const string& dirname, inode_ptr parent) override;
+      virtual inode_ptr mkdir (const string& dirname) override;
       virtual inode_ptr mkfile (const string& filename) override;
 };
 
