@@ -74,7 +74,7 @@ void base_file::remove (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-inode_ptr base_file::mkdir (const string&) {
+inode_ptr base_file::mkdir (const string&, inode_ptr parent) {
    throw file_error ("is a " + error_file_type());
 }
 
@@ -98,9 +98,6 @@ void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
 }
 
-directory::directory(){
-   //dirents.insert({".",})
-}
 
 size_t directory::size() const {
    size_t size {0};
