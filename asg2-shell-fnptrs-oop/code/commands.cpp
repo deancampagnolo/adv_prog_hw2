@@ -4,6 +4,7 @@
 #include "debug.h"
 
 command_hash cmd_hash {
+   {"#"     , fn_comment},
    {"cat"   , fn_cat   },
    {"cd"    , fn_cd    },
    {"echo"  , fn_echo  },
@@ -14,13 +15,15 @@ command_hash cmd_hash {
    {"mkdir" , fn_mkdir },
    {"prompt", fn_prompt},
    {"pwd"   , fn_pwd   },
-   {"rm"    , fn_rm    },
+   {"rm"    , fn_rm    }
+   
 };
 
 command_fn find_command_fn (const string& cmd) {
    // Note: value_type is pair<const key_type, mapped_type>
    // So: iterator->first is key_type (string)
    // So: iterator->second is mapped_type (command_fn)
+   cout << cmd <<endl;
    DEBUGF ('c', "[" << cmd << "]");
    const auto result = cmd_hash.find (cmd);
    if (result == cmd_hash.end()) {
@@ -37,6 +40,10 @@ int exit_status_message() {
    int status = exec::status();
    cout << exec::execname() << ": exit(" << status << ")" << endl;
    return status;
+}
+
+void fn_comment (inode_state& state, const wordvec& words) {
+
 }
 
 void fn_cat (inode_state& state, const wordvec& words){
