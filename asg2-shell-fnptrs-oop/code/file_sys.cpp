@@ -33,9 +33,11 @@ inode_state::inode_state() {
 const string& inode_state::prompt() const { return prompt_; }
 
 ostream& operator<< (ostream& out, const inode_state& state) {
+   cout<<"hi"<<endl;
    if (state.root == NULL) {
       return out;
    }
+   cout<<"fuck"<<endl;
    out << "inode_state: root = " << state.root->get_inode_nr()
        << ", cwd = " << state.cwd->get_inode_nr() << ", cwd parent = ";
        // FIXME(me)
