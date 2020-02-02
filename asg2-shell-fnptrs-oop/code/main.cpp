@@ -49,12 +49,12 @@ int main (int argc, char** argv) {
    bool need_echo = want_echo();
    inode_state state;
 
-   //shared_ptr<inode> root =
-   //  make_shared<inode>(file_type::DIRECTORY_TYPE);
-   //cout << root->get_inode_nr() << endl;
-   //cout << state << endl;
-   //state.set_root(root);
-   //cout << state << endl;
+   shared_ptr<inode> root =
+      make_shared<inode>(file_type::DIRECTORY_TYPE);
+   cout << root->get_inode_nr() << endl;
+   cout << state << endl;
+   state.set_root(root);
+   cout << state << endl;
    try {
       for (;;) {
          try {
