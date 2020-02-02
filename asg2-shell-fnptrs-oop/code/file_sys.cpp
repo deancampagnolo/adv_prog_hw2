@@ -88,7 +88,7 @@ inode_ptr base_file::mkfile (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-map<string,inode_ptr> base_file::get_dirents() {
+map<string,weak_ptr<inode>> base_file::get_dirents() {
    throw file_error ("is a " + error_file_type());
 }
 
