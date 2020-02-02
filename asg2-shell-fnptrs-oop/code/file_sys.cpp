@@ -86,7 +86,10 @@ inode_ptr base_file::mkfile (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-
+map<string,inode_ptr> base_file::get_dirents() {
+   throw file_error ("is a " + error_file_type());
+}
+
 size_t plain_file::size() const {
    size_t size {0};
    DEBUGF ('i', "size = " << size);
@@ -102,11 +105,12 @@ void plain_file::writefile (const wordvec& words) {
    DEBUGF ('i', words);
 }
 
-/*
+
 directory::directory() {
-   dirents.insert({".",})
+   dirents.insert({".",current_inode});
+   dirents.insert({"..",current_inode->get_parent()});
 }
-*/
+
 
 size_t directory::size() const {
    size_t size {0};
