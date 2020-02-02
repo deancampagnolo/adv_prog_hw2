@@ -68,13 +68,13 @@ class inode {
       static int next_inode_nr;
       int inode_nr;
       base_file_ptr contents;
-      inode_ptr parent;
+      weak_ptr<inode> parent;
    public:
       inode (file_type);
       int get_inode_nr() const;
       base_file_ptr get_base_file_ptr() { return contents;}
-      virtual void set_parent(inode_ptr new_parent) { this->parent = new_parent;}
-      virtual inode_ptr get_parent() { return parent;}
+      virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
+      virtual weak_ptr get_parent() { return parent;}
       virtual void set_base_file_inode(inode_ptr current_inode);
 };
 
