@@ -61,7 +61,8 @@ int inode::get_inode_nr() const {
 
 void inode::set_base_file_inode(inode_ptr current_inode) { 
    contents->set_current_inode(current_inode);
-   contents->insert_default_dirents();}
+   //contents->insert_default_dirents();
+   }
 
 file_error::file_error (const string& what):
             runtime_error (what) {
