@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "utility": "cpp",
-        "memory": "cpp"
+        "memory": "cpp",
+        "iosfwd": "cpp"
     }
 }

@@ -23,7 +23,6 @@ command_fn find_command_fn (const string& cmd) {
    // Note: value_type is pair<const key_type, mapped_type>
    // So: iterator->first is key_type (string)
    // So: iterator->second is mapped_type (command_fn)
-   cout << cmd <<endl;
    DEBUGF ('c', "[" << cmd << "]");
    auto result = cmd_hash.find (cmd);
    if (cmd.at(0) == '#') { 
@@ -93,20 +92,15 @@ void fn_make (inode_state& state, const wordvec& words){
 void fn_mkdir (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   //state.get_cwd_ptr()->get_base_file_ptr()->mkdir()
 }
 
 void fn_prompt (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
    cout <<"printing vector " <<words << endl;
-   string final_string = "";
-   for (long unsigned int vector_index = 1; vector_index < words.size();
-      vector_index++) {
-         
-      final_string = final_string.append(words.at(vector_index));
-      final_string = final_string.append(" ");
-   }
-   state.set_prompt_(final_string);
+   
+   state.set_prompt_(append_from(1,words));
 }
 
 void fn_pwd (inode_state& state, const wordvec& words){

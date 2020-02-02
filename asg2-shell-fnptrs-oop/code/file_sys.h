@@ -44,9 +44,9 @@ class inode_state {
       const string& prompt() const;
       virtual void set_root(inode_ptr pointer) {root = pointer;}
       virtual void set_cwd(inode_ptr pointer) {cwd = pointer;}
-      virtual inode_ptr get_root() {return root;}
-      virtual inode_ptr get_cwd() {return cwd;}
-      virtual void set_prompt_(string the_string) {prompt_ = the_string;}
+      virtual inode_ptr get_root_ptr() {return root;}
+      virtual inode_ptr get_cwd_ptr() {return cwd;}
+      virtual void set_prompt_(string the_string) {prompt_ = the_string.append(" ");}
 };
 
 // class inode -
@@ -71,6 +71,7 @@ class inode {
    public:
       inode (file_type);
       int get_inode_nr() const;
+      base_file_ptr get_base_file_ptr() { return contents;}
 };
 
 

@@ -42,7 +42,6 @@ ostream& operator<< (ostream& out, const inode_state& state) {
 }
 
 inode::inode(file_type type): inode_nr (next_inode_nr++) {
-   cout << "yessir" << endl;
    switch (type) {
       case file_type::PLAIN_TYPE:
            contents = make_shared<plain_file>();
