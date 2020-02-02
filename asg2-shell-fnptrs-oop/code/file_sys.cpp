@@ -113,10 +113,10 @@ void plain_file::writefile (const wordvec& words) {
 
 void directory::insert_default_dirents() {
    cout<<"current_inode"<<current_inode<<endl;
-   cout<<current_inode->get_parent()<<endl;
+   //cout<<current_inode->get_parent()<<endl;
 
    dirents.insert({".",current_inode});
-   dirents.insert({"..",current_inode->get_parent()});
+   //dirents.insert({"..",current_inode->get_parent()});
 }
 
 
