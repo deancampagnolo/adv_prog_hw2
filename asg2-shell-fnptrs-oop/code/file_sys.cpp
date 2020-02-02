@@ -112,11 +112,12 @@ void plain_file::writefile (const wordvec& words) {
 
 
 void directory::insert_default_dirents() {
-   cout<<"current_inode"<<current_inode<<endl;
-   auto temp_parent = current_inode->get_parent().lock();
+   auto temp_current = current_inode.lock();
+   auto temp_parent = temp_current->get_parent().lock();
+   
    cout<<temp_parent<<endl;
 
-   dirents.insert({".",current_inode});
+   dirents.insert({".",temp_current});
    dirents.insert({"..",temp_parent});
 }
 

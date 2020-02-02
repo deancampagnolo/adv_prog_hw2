@@ -72,8 +72,10 @@ class inode {
    public:
       inode (file_type);
       int get_inode_nr() const;
-      base_file_ptr get_base_file_ptr() { return contents;}
-      virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
+      base_file_ptr get_base_file_ptr() {return contents;}
+      virtual void set_parent(inode_ptr new_parent) {parent = new_parent;}
+      virtual void set_parent(weak_ptr<inode> new_parent)
+         {parent = new_parent;}
       virtual weak_ptr<inode> get_parent() { return parent;}
       virtual void set_base_file_inode(inode_ptr current_inode);
 };
@@ -93,7 +95,7 @@ class base_file {
    protected:
       base_file() = default;
       virtual const string& error_file_type() const = 0;
-      inode_ptr current_inode;
+      weak_ptr<inode> current_inode;
    public:
       virtual ~base_file() = default;
       base_file (const base_file&) = delete;
