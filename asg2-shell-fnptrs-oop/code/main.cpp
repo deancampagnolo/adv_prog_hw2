@@ -50,7 +50,7 @@ int main (int argc, char** argv) {
    inode_state state;
 
    shared_ptr<inode> root = make_shared<inode>(file_type::DIRECTORY_TYPE);
-   cout << root->get_inode_nr << endl;
+   cout << root->get_inode_nr() << endl;
    try {
       for (;;) {
          try {
