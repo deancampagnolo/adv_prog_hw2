@@ -75,13 +75,13 @@ void fn_exit (inode_state& state, const wordvec& words){
 
 void fn_ls (inode_state& state, const wordvec& words){
    cout << state << endl;
-   /*
+   
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
    for (auto pair : the_dirents) {
       cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
    }
-   */
+   
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 }
