@@ -41,6 +41,9 @@ void inode_state::set_cwd(inode_ptr pointer) {
 }
 
 ostream& operator<< (ostream& out, const inode_state& state) {
+   if (state.root == NULL) {
+      return out;
+   }
    out << "inode_state: root = " << state.root->get_inode_nr()
        << ", cwd = " << state.cwd;
    return out;
