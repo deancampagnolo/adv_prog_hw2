@@ -110,6 +110,7 @@ void directory::remove (const string& filename) {
 }
 
 inode_ptr directory::mkdir (const string& dirname) {
+   cout<<"we here"<<endl;
    DEBUGF ('i', dirname);
    return nullptr;
 }
