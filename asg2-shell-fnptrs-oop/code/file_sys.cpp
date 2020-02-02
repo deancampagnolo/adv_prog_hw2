@@ -76,6 +76,7 @@ void base_file::remove (const string&) {
 
 inode_ptr base_file::mkdir (const string&, inode_ptr parent) {
    throw file_error ("is a " + error_file_type());
+   DEBUGF('i', parent);
 }
 
 inode_ptr base_file::mkfile (const string&) {
@@ -111,10 +112,11 @@ void directory::remove (const string& filename) {
 
 inode_ptr directory::mkdir (const string& dirname, inode_ptr parent) {
    cout<<"we here"<<endl;
-   inode_ptr new_inode_ptr = make_shared<inode>(file_type::DIRECTORY_TYPE);
+   inode_ptr new_inode_ptr = 
+      make_shared<inode>(file_type::DIRECTORY_TYPE);
    new_inode_ptr->set_parent(parent);
    dirents.insert({dirname,new_inode_ptr});
-   //TODO need to sort dirents
+   // TODO need to sort dirents
    DEBUGF ('i', dirname);
    return nullptr;
 }
