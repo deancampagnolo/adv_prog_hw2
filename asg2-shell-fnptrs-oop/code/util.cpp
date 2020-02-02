@@ -38,9 +38,8 @@ void exec::status (int status) {
 
 string append_from(long unsigned int start, vector<string> words) {
    string final_string = "";
-   for (long unsigned int vector_index = start; vector_index < words.size();
-      vector_index++) {
-
+   for (long unsigned int vector_index = start;
+      vector_index < words.size();vector_index++) {
       final_string = final_string.append(words.at(vector_index));
       if (start < words.size()-1) {
          final_string = final_string.append(" ");
