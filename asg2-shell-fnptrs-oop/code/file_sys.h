@@ -74,6 +74,7 @@ class inode {
       int get_inode_nr() const;
       base_file_ptr get_base_file_ptr() { return contents;}
       virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
+      virtual inode_ptr get_parent() { return parent;}
 };
 
 
