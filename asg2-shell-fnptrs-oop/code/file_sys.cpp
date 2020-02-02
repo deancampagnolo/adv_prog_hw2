@@ -59,6 +59,9 @@ int inode::get_inode_nr() const {
    return inode_nr;
 }
 
+void inode::set_base_file_inode(inode_ptr current_inode) { 
+   contents->set_current_inode(current_inode);}
+
 file_error::file_error (const string& what):
             runtime_error (what) {
 }

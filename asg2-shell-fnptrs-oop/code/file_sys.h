@@ -75,8 +75,7 @@ class inode {
       base_file_ptr get_base_file_ptr() { return contents;}
       virtual void set_parent(inode_ptr new_parent) { parent = new_parent;}
       virtual inode_ptr get_parent() { return parent;}
-      virtual void set_base_file_inode(inode_ptr current_inode)
-         {contents->set_current_inode(current_inode);}
+      virtual void set_base_file_inode(inode_ptr current_inode);
 };
 
 
