@@ -47,7 +47,7 @@ int main (int argc, char** argv) {
    cout << argv[0] << " build " << __DATE__ << " " << __TIME__ << endl;
    scan_options (argc, argv);
    bool need_echo = want_echo();
-   inode_state state;
+   //inode_state state;
 
    //shared_ptr<inode> root =
    //  make_shared<inode>(file_type::DIRECTORY_TYPE);
@@ -60,7 +60,7 @@ int main (int argc, char** argv) {
          try {
             // Read a line, break at EOF, and echo print the prompt
             // if one is needed.
-            cout << state.prompt();
+            //cout << state.prompt();
             string line;
             getline (cin, line);
             if (cin.eof()) {
@@ -76,7 +76,7 @@ int main (int argc, char** argv) {
             wordvec words = split (line, " \t");
             DEBUGF ('y', "words = " << words);
             command_fn fn = find_command_fn (words.at(0));
-            fn (state, words);
+            //fn (state, words);
          }catch (command_error& error) {
             // If there is a problem discovered in any function, an
             // exn is thrown and printed here.
