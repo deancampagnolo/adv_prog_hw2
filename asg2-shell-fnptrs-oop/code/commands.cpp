@@ -25,7 +25,10 @@ command_fn find_command_fn (const string& cmd) {
    // So: iterator->second is mapped_type (command_fn)
    cout << cmd <<endl;
    DEBUGF ('c', "[" << cmd << "]");
-   const auto result = cmd_hash.find (cmd);
+   auto result = cmd_hash.find (cmd);
+   if (cmd.at(0) == '#') { 
+      result = cmd_hash.find("#");
+   }
    if (result == cmd_hash.end()) {
       throw command_error (cmd + ": no such function");
    }
