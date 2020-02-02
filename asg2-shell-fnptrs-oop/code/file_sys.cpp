@@ -26,7 +26,7 @@ ostream& operator<< (ostream& out, file_type type) {
 }
 
 inode_state::inode_state() {
-   DEBUGF ('i', "root = " << root << ", cwd = " << cwd
+   DEBUGF ('i', "root = " << root->get_inode_nr() << ", cwd = " << cwd
           << ", prompt = \"" << prompt() << "\"");
 }
 
