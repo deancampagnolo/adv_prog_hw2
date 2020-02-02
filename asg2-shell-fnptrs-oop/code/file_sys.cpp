@@ -137,8 +137,7 @@ inode_ptr directory::mkdir (const string& dirname) {
       make_shared<inode>(file_type::DIRECTORY_TYPE);
    new_inode_ptr->set_parent(current_inode);
    cout<<"new_inode_ptr"<<new_inode_ptr<<endl;
-   weak_ptr<inode> weak_inode_ptr= new_inode_ptr;
-   dirents.insert({dirname,weak_inode_ptr});
+   dirents.insert({dirname,new_inode_ptr});
    // TODO(me) need to sort dirents
    DEBUGF ('i', dirname);
    return new_inode_ptr;
