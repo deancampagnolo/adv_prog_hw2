@@ -37,8 +37,8 @@ ostream& operator<< (ostream& out, const inode_state& state) {
       return out;
    }
    out << "inode_state: root = " << state.root->get_inode_nr()
-       << ", cwd = " << state.cwd->get_inode_nr() << ", cwd parent = "
-       << state.cwd->get_parent()->get_inode_nr();
+       << ", cwd = " << state.cwd->get_inode_nr() << ", cwd parent = ";// FIXME(me)
+       //<< state.cwd->get_parent()->get_inode_nr();
    return out;
 }
 
