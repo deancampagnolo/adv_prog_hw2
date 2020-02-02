@@ -32,6 +32,11 @@ inode_state::inode_state() {
 
 const string& inode_state::prompt() const { return prompt_; }
 
+void inode_state::set_root(inode node) {
+   inode_ptr k = make_shared(node);
+   root = node_pointer;
+}
+
 ostream& operator<< (ostream& out, const inode_state& state) {
    out << "inode_state: root = " << state.root
        << ", cwd = " << state.cwd;

@@ -42,6 +42,8 @@ class inode_state {
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
       const string& prompt() const;
+      virtual void set_root(inode);
+      virtual void set_cwd(inode);
 };
 
 // class inode -
