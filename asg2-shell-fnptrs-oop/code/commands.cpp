@@ -137,8 +137,8 @@ void fn_pwd (inode_state& state, const wordvec& words){
 void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words); 
-   inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-      find(words.at(1))->second;
+   inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()
+   ->get_dirents().find(words.at(1))->second;
 
    if (target->get_base_file_ptr()->get_identity() == 
       file_type::PLAIN_TYPE ||target->get_base_file_ptr()->

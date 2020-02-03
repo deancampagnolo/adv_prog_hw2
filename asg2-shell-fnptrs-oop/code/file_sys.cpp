@@ -21,6 +21,7 @@ ostream& operator<< (ostream& out, file_type type) {
    static unordered_map<file_type,string,file_type_hash> hash {
       {file_type::PLAIN_TYPE, "PLAIN_TYPE"},
       {file_type::DIRECTORY_TYPE, "DIRECTORY_TYPE"},
+      {file_type::NO_TYPE, "NO_TYPE"}
    };
    return out << hash[type];
 }
@@ -54,6 +55,9 @@ inode::inode(file_type type): inode_nr (next_inode_nr++) {
       case file_type::DIRECTORY_TYPE:
            contents = make_shared<directory>();
            break;
+      default:
+         cout<<"there probably is a problem here"<<endl;
+         break;
    }
    DEBUGF ('i', "inode " << inode_nr << ", type = " << type);
 }
