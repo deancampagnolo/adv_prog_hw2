@@ -149,9 +149,11 @@ void fn_rm (inode_state& state, const wordvec& words){
    map<string,inode_ptr>::iterator target = 
       the_dirent.find(words.at(1));
 
-   //target->second->invalidate();
+   target->second->invalidate();
    the_dirent.erase(target);
    cout<<"dirent size: "<< the_dirent.size()<<endl;
+   cout<<"other dirent size: " << state.get_cwd_ptr()
+      ->get_base_file_ptr()->get_dirents().size()<<endl;
    for (auto pair : the_dirent) {
       cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
    }
