@@ -123,6 +123,9 @@ void plain_file::writefile (const wordvec& words) {
 directory::~directory() {
    cout<<"destroyed"<<endl;
    for (auto pair : dirents) {
+      if (!(pair.first == "." || pair.first == "..")) {
+         pair.second->invalidate();
+      }
       pair.second = nullptr;
    }
 }
@@ -134,7 +137,6 @@ void directory::insert_default_dirents() {
    dirents.insert({".",temp_current_shared});
    dirents.insert({"..",temp_parent_shared});
 }
-
 
 size_t directory::size() const {
    size_t size {0};
