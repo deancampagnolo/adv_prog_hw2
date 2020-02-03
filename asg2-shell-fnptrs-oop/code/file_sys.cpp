@@ -123,9 +123,9 @@ const wordvec& plain_file::readfile() const {
    return data;
 }
 
-void plain_file::writefile (const wordvec& words) {
-   cout<<"we be out here writing"<<endl;
-   DEBUGF ('i', words);
+void plain_file::writefile (const wordvec& content) {
+   cout<<"we be out here writing: "<< append_from(0,content)<<endl;
+   data = content;
 }
 
 directory::~directory() {
