@@ -78,8 +78,9 @@ class inode {
       virtual void set_parent(weak_ptr<inode> new_parent)
          {parent = new_parent;}
       virtual weak_ptr<inode> get_parent() { return parent;}
-      virtual void set_base_file_inode(inode_ptr current_inode);
+      virtual void set_base_file_inode(inode_ptr current_inode, file_type type);
       virtual void invalidate();
+      virtual void set_plain_file_contents(const wordvec& newdata);
 };
 
 
@@ -107,7 +108,7 @@ class base_file {
       virtual void writefile (const wordvec& newdata);
       virtual void remove (const string& filename);
       virtual inode_ptr mkdir (const string& dirname);
-      virtual inode_ptr mkfile (const string& filename);
+      virtual inode_ptr mkfile (const string& filename, string& contents);
       virtual void set_current_inode (inode_ptr new_current_inode)
          {current_inode = new_current_inode;}
       virtual map<string,inode_ptr> get_dirents();
@@ -167,7 +168,7 @@ class directory: public base_file {
       virtual size_t size() const override;
       virtual void remove (const string& filename) override;
       virtual inode_ptr mkdir (const string& dirname) override;
-      virtual inode_ptr mkfile (const string& filename) override;
+      virtual inode_ptr mkfile (const string& filename, string& contents) override;
       virtual map<string,inode_ptr> get_dirents() override { return dirents;}
       virtual void insert_default_dirents() override;
 };

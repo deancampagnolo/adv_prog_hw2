@@ -63,10 +63,16 @@ int inode::get_inode_nr() const {
    return inode_nr;
 }
 
-void inode::set_base_file_inode(inode_ptr current_inode) { 
+void inode::set_base_file_inode(inode_ptr current_inode, file_type type) { 
    contents->set_current_inode(current_inode);
-   contents->insert_default_dirents();
+   if (type == file_type::DIRECTORY_TYPE) {
+      contents->insert_default_dirents();
    }
+ }
+
+ void inode::set_plain_file_contents(const wordvec& newdata) {
+    contents->writefile(newdata);
+ }
 
 void inode::invalidate() {
    contents = nullptr;
@@ -93,7 +99,7 @@ inode_ptr base_file::mkdir (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-inode_ptr base_file::mkfile (const string&) {
+inode_ptr base_file::mkfile (const string&, string&) {
    throw file_error ("is a " + error_file_type());
 }
 
@@ -117,6 +123,7 @@ const wordvec& plain_file::readfile() const {
 }
 
 void plain_file::writefile (const wordvec& words) {
+   cout<<"we be out here writing"<<endl;
    DEBUGF ('i', words);
 }
 
@@ -153,7 +160,7 @@ inode_ptr directory::mkdir (const string& dirname) {
    inode_ptr new_inode_ptr = 
       make_shared<inode>(file_type::DIRECTORY_TYPE);
    new_inode_ptr->set_parent(current_inode);
-   new_inode_ptr->set_base_file_inode(new_inode_ptr);
+   new_inode_ptr->set_base_file_inode(new_inode_ptr, file_type::DIRECTORY_TYPE);
 
    dirents.insert({dirname,new_inode_ptr});
    // TODO(me) need to sort dirents
@@ -161,7 +168,12 @@ inode_ptr directory::mkdir (const string& dirname) {
    return new_inode_ptr;
 }
 
-inode_ptr directory::mkfile (const string& filename) {
+inode_ptr directory::mkfile (const string& filename, string& contents) {
+   inode_ptr new_inode_ptr =
+      make_shared<inode>(file_type::PLAIN_TYPE);
+   new_inode_ptr->set_parent(current_inode);
+   new_inode_ptr->set_base_file_inode(new_inode_ptr, file_type::PLAIN_TYPE);
+
    DEBUGF ('i', filename);
    return nullptr;
 }

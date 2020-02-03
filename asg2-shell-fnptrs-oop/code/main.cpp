@@ -57,7 +57,7 @@ int main (int argc, char** argv) {
    
    root->set_parent(root);
 
-   root->set_base_file_inode(root);
+   root->set_base_file_inode(root, file_type::DIRECTORY_TYPE);
 
 
    state.set_root(root);
