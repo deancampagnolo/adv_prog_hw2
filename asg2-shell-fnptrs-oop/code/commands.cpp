@@ -154,9 +154,9 @@ void fn_rm (inode_state& state, const wordvec& words){
    cout<<&the_dirent<<endl;
    cout<<"other dirent size: " << state.get_cwd_ptr()
       ->get_base_file_ptr()->get_dirents().size()<<endl;
-   auto xd = state.get_cwd_ptr()
-      ->get_base_file_ptr()->get_dirents();
-   cout<<&xd<<endl;
+   //auto xd = state.get_cwd_ptr()
+   //   ->get_base_file_ptr()->get_dirents();
+   //cout<<&xd<<endl;
    for (auto pair : the_dirent) {
       cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
    }
