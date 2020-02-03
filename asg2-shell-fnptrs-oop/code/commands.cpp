@@ -137,11 +137,14 @@ void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 
-   map<string,inode_ptr> the_dirent = state.get_cwd_ptr()->get_base_file_ptr()->get_dirents();
-   map<string,inode_ptr>::iterator target = the_dirent.find(words.at(1));
-   the_dirent.erase(target);
+   map<string,inode_ptr> the_dirent = state.get_cwd_ptr()
+      ->get_base_file_ptr()->get_dirents();
+      
+   map<string,inode_ptr>::iterator target = 
+      the_dirent.find(words.at(1));
 
    target->second->invalidate();
+   the_dirent.erase(target);
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
