@@ -16,7 +16,8 @@ command_hash cmd_hash {
    {"mkdir" , fn_mkdir },
    {"prompt", fn_prompt},
    {"pwd"   , fn_pwd   },
-   {"rm"    , fn_rm    }
+   {"rm"    , fn_rm    },
+   {"rmr"   , fn_rmr   },
    
 };
 
