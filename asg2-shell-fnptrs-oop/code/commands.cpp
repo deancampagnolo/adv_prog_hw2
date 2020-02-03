@@ -53,6 +53,8 @@ void fn_comment (inode_state& state, const wordvec& words) {
 void fn_cat (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
+      find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
