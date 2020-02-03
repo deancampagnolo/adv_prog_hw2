@@ -30,6 +30,9 @@ inode_state::inode_state() {
           << ", prompt = \"" << prompt() << "\"");
 }
 
+inode_state::~inode_state() {
+   root -> invalidate();
+}
 const string& inode_state::prompt() const { return prompt_; }
 
 ostream& operator<< (ostream& out, const inode_state& state) {

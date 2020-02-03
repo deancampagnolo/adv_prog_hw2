@@ -38,7 +38,7 @@ class inode_state {
       inode_ptr cwd {nullptr};
       string prompt_ {"% "};
    public:
-      ~inode_state() { root -> invalidate();}
+      ~inode_state();
       inode_state (const inode_state&) = delete; // copy ctor
       inode_state& operator= (const inode_state&) = delete; // op=
       inode_state();
