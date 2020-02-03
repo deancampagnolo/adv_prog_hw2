@@ -61,7 +61,7 @@ void fn_cd (inode_state& state, const wordvec& words){
    the_dirents.find(words.at(1));
    state.set_cwd(the_dirents.find(words.at(1))->second);
    //TODO(me) maybe it isn't words at 1
-   
+   //
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 }
