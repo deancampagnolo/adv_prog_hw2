@@ -136,9 +136,12 @@ void fn_pwd (inode_state& state, const wordvec& words){
 void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   
 
    map<string,inode_ptr> the_dirent = state.get_cwd_ptr()
       ->get_base_file_ptr()->get_dirents();
+
+   cout<<"dirent size: "<< the_dirent.size()<<endl;
       
    map<string,inode_ptr>::iterator target = 
       the_dirent.find(words.at(1));
