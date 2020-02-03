@@ -153,8 +153,9 @@ size_t directory::size() const {
 
 void directory::remove (const string& filename) {
    auto target = dirents.find(filename);
+   
+   target->second->invalidate();
    dirents.erase(target);
-   //target->second->invalidate();
    DEBUGF ('i', filename);
 }
 
