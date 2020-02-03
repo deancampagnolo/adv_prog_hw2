@@ -136,31 +136,8 @@ void fn_pwd (inode_state& state, const wordvec& words){
 
 void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
-   DEBUGF ('c', words);
-   
-
-   map<string,inode_ptr> the_dirent = state.get_cwd_ptr()
-      ->get_base_file_ptr()->get_dirents();
-   
-
-   cout<<"dirent size: "<< the_dirent.size()<<endl;
-      
-   map<string,inode_ptr>::iterator target = 
-      the_dirent.find(words.at(1));
-
-   target->second->invalidate();
-   the_dirent.erase(target);
-   cout<<"dirent size: "<< the_dirent.size()<<endl;
-   cout<<&the_dirent<<endl;
-   cout<<"other dirent size: " << state.get_cwd_ptr()
-      ->get_base_file_ptr()->get_dirents().size()<<endl;
-   //auto xd = state.get_cwd_ptr()
-   //   ->get_base_file_ptr()->get_dirents();
-   //cout<<&xd<<endl;
-   for (auto pair : the_dirent) {
-      cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
-   }
-   //cout<<&the_dirent<<endl;
+   DEBUGF ('c', words); 
+   state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
