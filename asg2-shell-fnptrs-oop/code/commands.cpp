@@ -143,7 +143,7 @@ void fn_rm (inode_state& state, const wordvec& words){
    map<string,inode_ptr>::iterator target = 
       the_dirent.find(words.at(1));
 
-   target->second->invalidate();
+   the_dirent.find(words.at(1))->second->invalidate();
    the_dirent.erase(target);
 }
 
