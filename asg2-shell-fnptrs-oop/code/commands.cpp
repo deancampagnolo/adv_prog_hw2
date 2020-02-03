@@ -108,7 +108,8 @@ void fn_make (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
    wordvec the_content(words.begin()+2, words.end());
-   state.get_cwd_ptr()->get_base_file_ptr()->mkfile(words.at(1), the_content);
+   state.get_cwd_ptr()->get_base_file_ptr()->mkfile(words.at(1),
+      the_content);
 }
 
 void fn_mkdir (inode_state& state, const wordvec& words){
