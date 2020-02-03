@@ -136,8 +136,11 @@ void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 
-   state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-      find(words.at(1))->second->invalidate();
+   inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()
+      ->get_dirents().find(words.at(1))->second;
+
+   target->invalidate();
+   target = nullptr;
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
