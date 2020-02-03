@@ -58,8 +58,12 @@ void fn_cat (inode_state& state, const wordvec& words){
 void fn_cd (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
-   the_dirents.find(words.at(1));
-   state.set_cwd(the_dirents.find(words.at(1))->second);
+   if (words.size() > 1) {
+      the_dirents.find(words.at(1));
+      state.set_cwd(the_dirents.find(words.at(1))->second);
+   } else {
+      state.set_cwd(state.get_root_ptr());
+   }
    //TODO(me) maybe it isn't words at 1
    //
    DEBUGF ('c', state);
