@@ -64,6 +64,11 @@ void inode::set_base_file_inode(inode_ptr current_inode) {
    contents->insert_default_dirents();
    }
 
+void inode::invalidate() {
+   contents = nullptr;
+   //contents->get_dirents
+}
+
 file_error::file_error (const string& what):
             runtime_error (what) {
 }
