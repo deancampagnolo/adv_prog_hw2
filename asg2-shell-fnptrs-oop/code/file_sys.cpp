@@ -99,7 +99,7 @@ inode_ptr base_file::mkdir (const string&) {
    throw file_error ("is a " + error_file_type());
 }
 
-inode_ptr base_file::mkfile (const string&, string&) {
+inode_ptr base_file::mkfile (const string&, wordvec&) {
    throw file_error ("is a " + error_file_type());
 }
 
@@ -168,12 +168,14 @@ inode_ptr directory::mkdir (const string& dirname) {
    return new_inode_ptr;
 }
 
-inode_ptr directory::mkfile (const string& filename, string& contents) {
+inode_ptr directory::mkfile (const string& filename, wordvec& contents) {
    inode_ptr new_inode_ptr =
       make_shared<inode>(file_type::PLAIN_TYPE);
    new_inode_ptr->set_parent(current_inode);
    new_inode_ptr->set_base_file_inode(new_inode_ptr, file_type::PLAIN_TYPE);
+   new_inode_ptr->set_plain_file_contents(contents);
 
+   dirents.insert({filename, new_inode_ptr});
    DEBUGF ('i', filename);
    return nullptr;
 }
