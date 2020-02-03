@@ -15,7 +15,7 @@ using namespace std;
 // inode_t -
 //    An inode is either a directory or a plain file.
 
-enum class file_type {PLAIN_TYPE, DIRECTORY_TYPE};
+enum class file_type {PLAIN_TYPE, DIRECTORY_TYPE, NO_TYPE};
 class inode;
 class base_file;
 class plain_file;
@@ -99,6 +99,7 @@ class base_file {
       base_file() = default;
       virtual const string& error_file_type() const = 0;
       weak_ptr<inode> current_inode;
+      file_type identity {file_type::NO_TYPE}; //initialized to this
    public:
       virtual ~base_file() = default;
       base_file (const base_file&) = delete;
@@ -113,6 +114,7 @@ class base_file {
          {current_inode = new_current_inode;}
       virtual map<string,inode_ptr> get_dirents();
       virtual void insert_default_dirents();
+      virtual file_type get_identity() {return identity;}
 };
 
 // class plain_file -
@@ -127,6 +129,7 @@ class base_file {
 class plain_file: public base_file {
    private:
       wordvec data;
+      file_type identity {file_type::PLAIN_TYPE};
       virtual const string& error_file_type() const override {
          static const string result = "plain file";
          return result;
@@ -135,6 +138,7 @@ class plain_file: public base_file {
       virtual size_t size() const override;
       virtual const wordvec& readfile() const override;
       virtual void writefile (const wordvec& newdata) override;
+      virtual file_type get_identity() {return identity;}
 };
 
 // class directory -
@@ -159,6 +163,7 @@ class directory: public base_file {
    private:
       // Must be a map, not unordered_map, so printing is lexicographic
       map<string,inode_ptr> dirents;
+      file_type identity {file_type::DIRECTORY_TYPE};
       virtual const string& error_file_type() const override {
          static const string result = "directory";
          return result;
@@ -171,6 +176,7 @@ class directory: public base_file {
       virtual inode_ptr mkfile (const string& filename, wordvec& contents) override;
       virtual map<string,inode_ptr> get_dirents() override { return dirents;}
       virtual void insert_default_dirents() override;
+      virtual file_type get_identity() {return identity;}
 };
 
 #endif

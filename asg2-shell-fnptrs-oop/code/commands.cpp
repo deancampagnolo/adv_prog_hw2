@@ -137,11 +137,22 @@ void fn_pwd (inode_state& state, const wordvec& words){
 void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words); 
-   state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
+   inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
+      find(words.at(1))->second;
+
+   if (target->get_base_file_ptr()->get_identity() == 
+      file_type::PLAIN_TYPE ||target->get_base_file_ptr()->
+      get_dirents().size() <= 2) {
+
+      state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
+   } else {
+      cout<< "you cant do that!"<< endl;   
+   }
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
+   state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
 }
 
