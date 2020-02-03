@@ -2,6 +2,7 @@
 
 #include "commands.h"
 #include "debug.h"
+#include "map"
 
 command_hash cmd_hash {
    {"#"     , fn_comment},
@@ -136,11 +137,11 @@ void fn_rm (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 
-   inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()
-      ->get_dirents().find(words.at(1))->second;
+   map<string,inode_ptr> the_dirent = state.get_cwd_ptr()->get_base_file_ptr()->get_dirents();
+   map<string,inode_ptr>::iterator target = the_dirent.find(words.at(1));
+   the_dirent.erase(target);
 
-   target->invalidate();
-   target = nullptr;
+   target->second->invalidate();
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
