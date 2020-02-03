@@ -31,7 +31,7 @@ inode_state::inode_state() {
 }
 
 inode_state::~inode_state() {
-   //root -> invalidate();
+   root -> invalidate();
    cout<<"placeholder"<<endl;
 }
 const string& inode_state::prompt() const { return prompt_; }
