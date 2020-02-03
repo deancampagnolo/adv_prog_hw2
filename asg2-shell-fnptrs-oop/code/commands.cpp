@@ -155,6 +155,7 @@ void fn_rm (inode_state& state, const wordvec& words){
    for (auto pair : the_dirent) {
       cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
    }
+   cout<<&the_dirent<<endl;
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
