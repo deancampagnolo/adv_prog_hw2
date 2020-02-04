@@ -56,6 +56,7 @@ void fn_comment (inode_state& state, const wordvec& words) {
 string clean_cd_to_command (inode_state& state, const wordvec& words,
    bool do_extra) {
 
+   if (words.size() <= 1) { return "";}
    wordvec list_of_words = split(words.at(1),"/");
    int size = do_extra ? list_of_words.size() : list_of_words.size()-1;
    for (int word_iterator = 0; word_iterator<size;
