@@ -212,6 +212,8 @@ void fn_lsr (inode_state& state, const wordvec& words){
    }
    if (!isroot) {
       cd_back_command(state, origword, true);
+   } else {
+      state.set_cwd(temp);
    }
 }
 
