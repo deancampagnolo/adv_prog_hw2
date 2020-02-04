@@ -190,6 +190,7 @@ void fn_lsr (inode_state& state, const wordvec& words){
       cout<<ls_pwd<<endl;
    } else { cout<<"/:"<<endl;}
 
+   cout<<"aych"<<endl;
    for (auto pair : the_dirents) {
       string name = pair.first;
       if (pair.second->get_base_file_ptr()->get_identity() ==
