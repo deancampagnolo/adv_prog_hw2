@@ -95,7 +95,6 @@ void fn_ls (inode_state& state, const wordvec& words){
    cout<<ls_pwd<<endl;
 
    for (auto pair : the_dirents) {
-      //cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
       string name = pair.first;
       if (pair.second->get_base_file_ptr()->get_identity() ==
          file_type::DIRECTORY_TYPE && name != "." && name != "..") {
@@ -107,9 +106,22 @@ void fn_ls (inode_state& state, const wordvec& words){
    
 }
 
-void fn_lsr (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
+void fn_lsr (inode_state& state, const wordvec& words, bool one_shot = false){
+   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
+      get_base_file_ptr()->get_dirents();
+   string ls_pwd = get_pwd(state,words).append(":");
+   cout<<ls_pwd<<endl;
+
+   for (auto pair : the_dirents) {
+      string name = pair.first;
+      if (pair.second->get_base_file_ptr()->get_identity() ==
+         file_type::DIRECTORY_TYPE && name != "." && name != "..") {
+         name.append("/");
+      }
+      cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
+         ->get_base_file_ptr()->size()<<" "<<name<<endl;
+      
+   }
 }
 
 void fn_make (inode_state& state, const wordvec& words){
