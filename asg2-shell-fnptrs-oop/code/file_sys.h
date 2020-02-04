@@ -117,7 +117,7 @@ class base_file {
       virtual void insert_default_dirents();
       virtual file_type get_identity() {return identity;}
       virtual string get_name() {return name;}
-      virtual string set_name(string new_name) {name = new_name;}
+      virtual void set_name(string new_name) {name = new_name;}
 };
 
 // class plain_file -
