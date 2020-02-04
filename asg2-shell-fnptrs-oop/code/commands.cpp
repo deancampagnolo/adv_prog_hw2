@@ -133,24 +133,19 @@ void fn_prompt (inode_state& state, const wordvec& words){
 void fn_pwd (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   stack <string> the_pwd;
+   wordvec the_pwd_vec;
    inode_ptr the_inode = state.get_cwd_ptr();
    cout<<"name"<<the_inode->get_base_file_ptr()->get_name()<<endl;
    while (the_inode->get_inode_nr() != state.get_root_ptr()
       ->get_inode_nr()){
-      the_pwd.push(the_inode->get_base_file_ptr()->get_name());
+      the_pwd_vec.insert(the_pwd_vec.end(),the_inode->get_base_file_ptr()->get_name());
       the_inode = the_inode->get_parent().lock();
       cout<<"added"<<the_inode->get_base_file_ptr()->get_name()<<endl;
    }
    string final_pwd = "/";
-   int stack_size = the_pwd.size();
-   for (int stack_iterator = 0; stack_iterator < stack_size;
-      stack_iterator++) {
-      cout<<"iterator"<<stack_iterator<<endl;
-      cout<<"size"<<stack_size<<endl;
-      cout<<the_pwd.top()<<endl;
-      final_pwd.append(the_pwd.top());
-      the_pwd.pop();
+   for (int stack_iterator = the_pwd_vec.size()-1; stack_iterator >= 0;
+      stack_iterator--) {
+         final_pwd.append(the_pwd_vec.at(stack_iterator));
    }
    final_pwd.append(":");
    cout<<final_pwd<<endl;
