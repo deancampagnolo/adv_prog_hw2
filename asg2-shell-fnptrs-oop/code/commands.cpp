@@ -322,7 +322,17 @@ void fn_make (inode_state& state, const wordvec& words){
 void fn_mkdir (inode_state& state, const wordvec& words){
    auto dirents1 = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
-   if (words.size() > 1 && dirents1.find(words.at(1)) == dirents1.end()) {
+   wordvec list_of_words;
+   if (words.size() >1) {
+      list_of_words = split(words.at(1),"/");
+   }
+
+   if (list_of_words.size() > 1 && dirents1.find(words.at(1)) != dirents1.end()) {
+      complain()<<"Directory cannot be made"<<endl;
+      return;
+   }
+
+   if (words.size() > 1) {
    
       string s_target = clean_cd_to_command(state, words, false);
       auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
