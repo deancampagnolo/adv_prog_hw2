@@ -123,11 +123,12 @@ void fn_cd (inode_state& state, const wordvec& words){
          cout<<"b4"<<endl;
          clean_cd_to_command(state, words, true);
          cout<<"aft"<<endl;
+      } else {
+         map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
+         get_base_file_ptr()->get_dirents();
+         the_dirents.find(words.at(1));
+         state.set_cwd(the_dirents.find(words.at(1))->second);
       }
-      map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
-      get_base_file_ptr()->get_dirents();
-      the_dirents.find(words.at(1));
-      state.set_cwd(the_dirents.find(words.at(1))->second);
    } else {
       state.set_cwd(state.get_root_ptr());
    }
