@@ -169,7 +169,8 @@ void fn_ls (inode_state& state, const wordvec& words){
    auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
 
-   if (words.size() <2 || dirents.find(words.at(1)) != dirents.end()) {
+   if (words.size() <2 || dirents.find(words.at(1)) != dirents.end()
+      ||words.at(1) == "/") {
       
       wordvec origword = words;
       bool isroot = false;
@@ -293,7 +294,7 @@ void fn_make (inode_state& state, const wordvec& words){
       state.get_cwd_ptr()->get_base_file_ptr()->mkfile(s_target,
          the_content);
    } else {
-      complain()<<"cannot make this"<<endl;
+      complain()<<"File cannot be made"<<endl;
    }
    cd_back_command(state, origword, false);
 }
@@ -309,7 +310,7 @@ void fn_mkdir (inode_state& state, const wordvec& words){
       state.get_cwd_ptr()->get_base_file_ptr()->mkdir(s_target);
       cd_back_command(state, origword, false);
    } else {
-      complain()<<"cannot makedir this"<<endl;
+      complain()<<"Directory cannot be made"<<endl;
    }
 }
 
@@ -361,10 +362,10 @@ void fn_rm (inode_state& state, const wordvec& words){
 
          state.get_cwd_ptr()->get_base_file_ptr()->remove(s_target);
       } else {
-         cout<< "you cant do that!"<< endl;   
+         complain()<< "Cannot remove: Directory has contents"<< endl;
       }
    } else {
-      complain()<<"rm file doesn't exist"<<endl;
+      complain()<<"File does not exist"<<endl;
    }
    cd_back_command(state, origword, false);
 }
