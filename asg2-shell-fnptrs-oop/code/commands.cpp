@@ -98,6 +98,7 @@ void fn_cd (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
 
+   cout<<"cd is"<<endl;
 
 
    if (words.size() > 1) {
