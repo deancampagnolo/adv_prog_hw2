@@ -99,7 +99,7 @@ void fn_cat (inode_state& state, const wordvec& words){
    cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
       find(s_target)->second->get_base_file_ptr()->readfile()<<endl;
 
-   cd_back_command(state, words);
+   cd_back_command(state, words, false);
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
@@ -149,7 +149,7 @@ void fn_ls (inode_state& state, const wordvec& words){
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
    }
-   cd_back_command(state, words);
+   cd_back_command(state, words, true);
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
