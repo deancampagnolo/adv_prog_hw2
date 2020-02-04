@@ -97,7 +97,7 @@ void fn_ls (inode_state& state, const wordvec& words){
    for (auto pair : the_dirents) {
       //cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
-         ->get_base_file_ptr()->size()<<endl;
+         ->get_base_file_ptr()->size()<<" "<<pair.first<<endl;
    }
    
 }
