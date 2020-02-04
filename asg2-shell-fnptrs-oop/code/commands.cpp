@@ -106,6 +106,10 @@ void fn_cat (inode_state& state, const wordvec& words){
    } else {
       cout<<"Cannot cat there"<<endl;
    }
+   if (words.size() > 2) {
+      wordvec sub(words.begin()+1, words.end());
+      fn_cat(state,sub);
+   }
    cd_back_command(state, origword, false);
 }
 
