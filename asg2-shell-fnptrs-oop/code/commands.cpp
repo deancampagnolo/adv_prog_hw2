@@ -279,7 +279,6 @@ void fn_make (inode_state& state, const wordvec& words){
       state.get_cwd_ptr()->get_base_file_ptr()->mkfile(s_target,
          the_content);
    } else {
-      cout<<"hello?"<<endl;
       complain()<<"cannot make this"<<endl;
    }
    cd_back_command(state, origword, false);
@@ -295,7 +294,6 @@ void fn_mkdir (inode_state& state, const wordvec& words){
       state.get_cwd_ptr()->get_base_file_ptr()->mkdir(s_target);
       cd_back_command(state, origword, false);
    } else {
-      cout<<"hello?"<<endl;
       complain()<<"cannot makedir this"<<endl;
    }
 }
