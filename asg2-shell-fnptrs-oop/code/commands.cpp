@@ -53,17 +53,18 @@ void fn_comment (inode_state& state, const wordvec& words) {
    cout << "this was ignored because its a comment!" << endl;
 }
 
-string clean_cd_to_command (inode_state& state, const wordvec& words) {
-   int counter = 0;
+string clean_cd_to_command (inode_state& state, const wordvec& words,
+   bool do_extra) {
+
    wordvec list_of_words = split(words.at(1),"/");
-   for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
+   int size = do_extra ? list_of_words.size() : list_of_words.size()-1;
+   for (int word_iterator = 0; word_iterator<size;
       word_iterator++) {
          wordvec deeper_cd_command;
          deeper_cd_command.insert(deeper_cd_command.end(), "cd");
          deeper_cd_command.insert(deeper_cd_command.end(),
             list_of_words.at(word_iterator));
          fn_cd(state, deeper_cd_command);
-         counter++;
    }
    return list_of_words.at(list_of_words.size()-1);
 }
@@ -83,7 +84,7 @@ void fn_cat (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 
-   string s_target = clean_cd_to_command(state, words);
+   string s_target = clean_cd_to_command(state, words, false);
    
    //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
    //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
@@ -98,13 +99,9 @@ void fn_cd (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
 
-   cout<<"cd is"<<endl;
-
-
    if (words.size() > 1) {
-      string s_target = clean_cd_to_command(state, words);
-      the_dirents.find(s_target);
-      state.set_cwd(the_dirents.find(s_target)->second);
+      the_dirents.find(words.at(1));
+      state.set_cwd(the_dirents.find(words.at(1))->second);
    } else {
       state.set_cwd(state.get_root_ptr());
    }
@@ -130,6 +127,9 @@ void fn_exit (inode_state& state, const wordvec& words){
 void fn_ls (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
+   
+   clean_cd_to_command(state, words, true);
+
    string ls_pwd = get_pwd(state,words).append(":");
    cout<<ls_pwd<<endl;
 
@@ -142,7 +142,7 @@ void fn_ls (inode_state& state, const wordvec& words){
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
    }
-   
+   cd_back_command(state, words);
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
