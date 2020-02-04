@@ -158,7 +158,7 @@ void fn_exit (inode_state& state, const wordvec& words){
    if (words.size() > 1) {
       try {
          status = stoi(words.at(1));
-      } catch (invalid_argument e) {
+      } catch (invalid_argument) {
          status = 127;
       }
    }
