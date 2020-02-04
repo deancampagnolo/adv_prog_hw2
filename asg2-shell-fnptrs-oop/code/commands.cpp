@@ -139,6 +139,7 @@ void fn_pwd (inode_state& state, const wordvec& words){
       ->get_inode_nr()){
       the_pwd.push(the_inode->get_base_file_ptr()->get_name());
       the_inode = the_inode->get_parent().lock();
+      cout<<"added one"<<endl;
    }
    string final_pwd = "/";
    int stack_size = the_pwd.size();
