@@ -103,6 +103,7 @@ void fn_cat (inode_state& state, const wordvec& words){
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
+   cout<<"wordsat"<<words.at(1)<<endl;
    if (words.size() > 1) {
       if (split(words.at(1),"/").size()>1) {
          cout<<"b4"<<endl;
