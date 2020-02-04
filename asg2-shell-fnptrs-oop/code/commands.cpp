@@ -196,7 +196,9 @@ void fn_make (inode_state& state, const wordvec& words){
 }
 
 void fn_mkdir (inode_state& state, const wordvec& words){
-   state.get_cwd_ptr()->get_base_file_ptr()->mkdir(words.at(1));
+   string s_target = clean_cd_to_command(state, words, false);
+   state.get_cwd_ptr()->get_base_file_ptr()->mkdir(s_target);
+   cd_back_command(state, words, false);
 }
 
 void fn_prompt (inode_state& state, const wordvec& words){
@@ -231,20 +233,24 @@ void fn_pwd (inode_state& state, const wordvec& words){
 }
 
 void fn_rm (inode_state& state, const wordvec& words){
+   string s_target = clean_cd_to_command(state, words, false);
    inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()
-   ->get_dirents().find(words.at(1))->second;
+   ->get_dirents().find(s_target)->second;
 
    if (target->get_base_file_ptr()->get_identity() == 
       file_type::PLAIN_TYPE ||target->get_base_file_ptr()->
       get_dirents().size() <= 2) {
 
-      state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
+      state.get_cwd_ptr()->get_base_file_ptr()->remove(s_target);
    } else {
       cout<< "you cant do that!"<< endl;   
    }
+   cd_back_command(state, words, false);
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
-   state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
+   string s_target = clean_cd_to_command(state, words, false);
+   state.get_cwd_ptr()->get_base_file_ptr()->remove(s_target);
+   cd_back_command(state, words, false);
 }
 
