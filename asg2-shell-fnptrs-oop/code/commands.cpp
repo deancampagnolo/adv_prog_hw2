@@ -116,9 +116,10 @@ void fn_cd (inode_state& state, const wordvec& words){
       } else {
          map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
          get_base_file_ptr()->get_dirents();
-         if (the_dirents.find(words.at(1)) != the_dirents.end() && the_dirents.find(words.at(1))
-            ->second->get_base_file_ptr()->get_identity() ==
-            file_type::DIRECTORY_TYPE) {
+         if (the_dirents.find(words.at(1)) != the_dirents.end() &&
+            the_dirents.find(words.at(1))->second->get_base_file_ptr()
+            ->get_identity() == file_type::DIRECTORY_TYPE) {
+               
             state.set_cwd(the_dirents.find(words.at(1))->second);
          } else {
             cout<<"Cannot cd there"<<endl;
