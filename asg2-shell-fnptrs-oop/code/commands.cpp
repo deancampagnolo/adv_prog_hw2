@@ -134,24 +134,21 @@ void fn_exit (inode_state& state, const wordvec& words){
 void fn_ls (inode_state& state, const wordvec& words){
    wordvec origword = words;
    bool isroot = false;
-   if (words.size()>1 && words.at(1) == "/") {
+   if (words.size()>1 && words.at(1) == "/"){
       isroot = true;
    }
-
-   map<string,inode_ptr> the_dirents;
-   if (!isroot) {
-      clean_cd_to_command(state, words, true);
-      the_dirents = state.get_cwd_ptr()->
-         get_base_file_ptr()->get_dirents();
-   } else {
-      the_dirents = state.get_root_ptr()->
-         get_base_file_ptr()->get_dirents();
+   inode_ptr original_ptr = state.get_cwd_ptr();
+   if (isroot) {
+      state.set_cwd(state.get_root_ptr());
    }
 
-   if (!isroot) {
-      string ls_pwd = get_pwd(state,words).append(":");
-      cout<<ls_pwd<<endl;
-   } else { cout<<"/:"<<endl;}
+   clean_cd_to_command(state, words, true);
+
+   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
+      get_base_file_ptr()->get_dirents();
+
+   string ls_pwd = get_pwd(state,words).append(":");
+   cout<<ls_pwd<<endl;
 
    for (auto pair : the_dirents) {
       string name = pair.first;
@@ -162,33 +159,19 @@ void fn_ls (inode_state& state, const wordvec& words){
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
    }
-
-   if (!isroot){
-      cd_back_command(state, origword, true);
+   cd_back_command(state, origword, true);
+   if (isroot) {
+      state.set_cwd(original_ptr);
    }
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
    wordvec origword = words;
-   bool isroot = false;
-   if (words.size()>1 && words.at(1) == "/") {
-      isroot = true;
-   }
-
-   map<string,inode_ptr> the_dirents;
-   if (!isroot) {
-      clean_cd_to_command(state, words, true);
-      the_dirents = state.get_cwd_ptr()->
-         get_base_file_ptr()->get_dirents();
-   } else {
-      the_dirents = state.get_root_ptr()->
-         get_base_file_ptr()->get_dirents();
-   }
-
-   if (!isroot) {
-      string ls_pwd = get_pwd(state,words).append(":");
-      cout<<ls_pwd<<endl;
-   } else { cout<<"/:"<<endl;}
+   clean_cd_to_command(state, words, true);
+   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
+      get_base_file_ptr()->get_dirents();
+   string ls_pwd = get_pwd(state,words).append(":");
+   cout<<ls_pwd<<endl;
 
    for (auto pair : the_dirents) {
       string name = pair.first;
@@ -215,9 +198,7 @@ void fn_lsr (inode_state& state, const wordvec& words){
       }
 
    }
-   if (!isroot) {
-      cd_back_command(state, origword, true);
-   }
+   cd_back_command(state, origword, true);
 }
 
 void fn_make (inode_state& state, const wordvec& words){
