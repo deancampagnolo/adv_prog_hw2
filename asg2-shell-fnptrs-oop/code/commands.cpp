@@ -145,6 +145,8 @@ void fn_pwd (inode_state& state, const wordvec& words){
    int stack_size = the_pwd.size();
    for (int stack_iterator = 0; stack_iterator < stack_size;
       stack_iterator++) {
+      cout<<"iterator"<<stack_iterator<<endl;
+      cout<<"size"<<stack_size<<endl;
       final_pwd.append(the_pwd.top());
       the_pwd.pop();
    }
