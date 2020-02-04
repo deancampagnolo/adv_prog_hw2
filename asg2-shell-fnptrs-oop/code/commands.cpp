@@ -167,7 +167,7 @@ void fn_exit (inode_state& state, const wordvec& words){
 
 void fn_ls (inode_state& state, const wordvec& words){
 
-   string the_current_name = state.get_cwd_ptr()->get_base_file_ptr()->get_name();
+   //string the_current_name = state.get_cwd_ptr()->get_base_file_ptr()->get_name();
 
    if (words.size() > 1 && words.at(1) == ".") {
       wordvec sub(words.begin()+1, words.end());
@@ -216,13 +216,14 @@ void fn_ls (inode_state& state, const wordvec& words){
       if (!isroot){
          cd_back_command(state, origword, true);
       }
-
+      /*
       if (words.size() > 1 && words.at(1) == "..") {
          wordvec up_cd_command;
          up_cd_command.insert(up_cd_command.end(), "cd");
          up_cd_command.insert(up_cd_command.end(), the_current_name);
          fn_cd(state, up_cd_command);
       }
+      */
    }
    if (words.size() > 2) {
       wordvec sub(words.begin()+1, words.end());
