@@ -117,7 +117,7 @@ void base_file::insert_default_dirents() {
 }
 
 size_t plain_file::size() const {
-   size_t size = data.size() - 1;
+   size_t size = data.size() > 0 ? data.size()-1 : 0;
    for (string individual_string : data) {
       size += individual_string.size();
    }
