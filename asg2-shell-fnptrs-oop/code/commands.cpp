@@ -166,6 +166,13 @@ void fn_exit (inode_state& state, const wordvec& words){
 }
 
 void fn_ls (inode_state& state, const wordvec& words){
+
+   if (words.size() > 1 && words.at(1) == ".") {
+      wordvec sub(words.begin()+1, words.end());
+      fn_ls (state, sub);
+      return;
+   }
+
    auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
 
@@ -193,10 +200,6 @@ void fn_ls (inode_state& state, const wordvec& words){
          string ls_pwd = get_pwd(state,words).append(":");
          cout<<ls_pwd<<endl;
       } else { cout<<"/:"<<endl;}
-
-      if (words.size() > 1 && words.at(1) == ".") {
-         return;
-      }
 
       for (auto pair : the_dirents) {
          string name = pair.first;
