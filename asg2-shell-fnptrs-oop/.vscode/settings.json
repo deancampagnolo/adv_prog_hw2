@@ -5,6 +5,7 @@
         "iosfwd": "cpp",
         "map": "cpp",
         "iostream": "cpp",
-        "__tree": "cpp"
+        "__tree": "cpp",
+        "vector": "cpp"
     }
 }
