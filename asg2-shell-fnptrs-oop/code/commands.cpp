@@ -230,6 +230,11 @@ void fn_lsr (inode_state& state, const wordvec& words){
          }
          cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
             ->get_base_file_ptr()->size()<<" "<<name<<endl;
+      }
+
+
+      for (auto pair : the_dirents) {
+         string name = pair.first;
 
          if (pair.second->get_base_file_ptr()->get_identity() ==
             file_type::DIRECTORY_TYPE && name != "." && name != "..") {
