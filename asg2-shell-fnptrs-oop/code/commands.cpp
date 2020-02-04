@@ -90,6 +90,7 @@ void fn_exit (inode_state& state, const wordvec& words){
 
 void fn_ls (inode_state& state, const wordvec& words){
    cout << state << endl;
+   cout<<get_pwd(state,words)<<endl;
 
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
@@ -130,25 +131,32 @@ void fn_prompt (inode_state& state, const wordvec& words){
    state.set_prompt_(append_from(1,words));
 }
 
+string get_pwd (inode_state& state, const wordvec& words) {
+   wordvec the_pwd_vec;
+   inode_ptr the_inode = state.get_cwd_ptr();
+
+   while (the_inode->get_inode_nr() != state.get_root_ptr()
+      ->get_inode_nr()){
+
+      the_pwd_vec.insert(the_pwd_vec.end(),the_inode
+      ->get_base_file_ptr()->get_name());
+      the_inode = the_inode->get_parent().lock();
+   }
+
+   string final_pwd = "/";
+   for (int pwd_vec_iterator = the_pwd_vec.size()-1;
+      pwd_vec_iterator >= 0; pwd_vec_iterator--) {
+      
+      final_pwd.append(the_pwd_vec.at(pwd_vec_iterator));
+   }
+   final_pwd.append(":");
+   return final_pwd;
+}
+
 void fn_pwd (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   wordvec the_pwd_vec;
-   inode_ptr the_inode = state.get_cwd_ptr();
-   while (the_inode->get_inode_nr() != state.get_root_ptr()
-      ->get_inode_nr()){
-      the_pwd_vec.insert(the_pwd_vec.end(),the_inode->get_base_file_ptr()
-         ->get_name());
-      the_inode = the_inode->get_parent().lock();
-   }
-   string final_pwd = "/";
-   for (int pwd_vec_iterator = the_pwd_vec.size()-1; pwd_vec_iterator >= 0;
-      pwd_vec_iterator--) {
-         final_pwd.append(the_pwd_vec.at(pwd_vec_iterator));
-   }
-   final_pwd.append(":");
-   cout<<final_pwd<<endl;
-   
+   cout<<get_pwd(state,words)<<endl;
 }
 
 void fn_rm (inode_state& state, const wordvec& words){
