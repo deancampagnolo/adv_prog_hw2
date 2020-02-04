@@ -41,6 +41,10 @@ void fn_rmr    (inode_state& state, const wordvec& words);
 
 string get_pwd (inode_state& state, const wordvec& words);
 
+string clean_cd_to_command (inode_state& state, const wordvec& words);
+
+void cd_back_command (inode_state& state, const wordvec& words);
+
 command_fn find_command_fn (const string& command);
 
 // exit_status_message -

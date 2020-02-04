@@ -53,14 +53,8 @@ void fn_comment (inode_state& state, const wordvec& words) {
    cout << "this was ignored because its a comment!" << endl;
 }
 
-
-
-void fn_cat (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
-
+string clean_cd_to_command (inode_state& state, const wordvec& words) {
    int counter = 0;
-
    wordvec list_of_words = split(words.at(1),"/");
    for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
       word_iterator++) {
@@ -71,14 +65,11 @@ void fn_cat (inode_state& state, const wordvec& words){
          fn_cd(state, deeper_cd_command);
          counter++;
    }
-   
+   return list_of_words.at(list_of_words.size()-1);
+}
 
-   //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-   //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
-   cout<<"at least we here :/"<<endl;
-   cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-      find(list_of_words.at(list_of_words.size()-1))->second->get_base_file_ptr()->readfile()<<endl;
-
+void cd_back_command (inode_state& state, const wordvec& words) {
+   wordvec list_of_words = split(words.at(1),"/");
    for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
       word_iterator++) {
          wordvec shallower_cd_command;
@@ -86,6 +77,21 @@ void fn_cat (inode_state& state, const wordvec& words){
          shallower_cd_command.insert(shallower_cd_command.end(), "..");
          fn_cd(state, shallower_cd_command);
    }
+}
+
+void fn_cat (inode_state& state, const wordvec& words){
+   DEBUGF ('c', state);
+   DEBUGF ('c', words);
+
+   string target = clean_cd_to_command(state, words);
+   
+   //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
+   //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
+   cout<<"at least we here :/"<<endl;
+   cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
+      find(target)->second->get_base_file_ptr()->readfile()<<endl;
+
+   cd_back_command(state, words);
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
