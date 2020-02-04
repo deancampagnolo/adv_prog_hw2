@@ -105,7 +105,9 @@ void fn_cat (inode_state& state, const wordvec& words){
 void fn_cd (inode_state& state, const wordvec& words){
    if (words.size() > 1) {
       if (split(words.at(1),"/").size()>1) {
+         cout<<"b4"<<endl;
          clean_cd_to_command(state, words, true);
+         cout<<"aft"<<endl;
       }
       map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
