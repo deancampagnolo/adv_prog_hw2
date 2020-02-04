@@ -100,7 +100,7 @@ void fn_cat (inode_state& state, const wordvec& words){
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
-   if (words.size() > 1) {
+   if (words.size() > 1 && words.at(1) != "/") {
       if (split(words.at(1),"/").size()>1) {
          clean_cd_to_command(state, words, true);
       } else {
