@@ -52,8 +52,6 @@ int main (int argc, char** argv) {
    
    shared_ptr<inode> root =
       make_shared<inode>(file_type::DIRECTORY_TYPE);
-   
-   cout << "hello"<< endl;
    root->set_parent(root);
 
    root->set_base_file_inode(root, file_type::DIRECTORY_TYPE);
