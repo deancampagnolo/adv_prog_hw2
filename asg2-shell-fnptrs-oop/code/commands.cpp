@@ -158,7 +158,7 @@ void fn_exit (inode_state& state, const wordvec& words){
    if (words.size() > 1) {
       try {
          status = stoi(words.at(1));
-      } catch (exception e) {
+      } catch (invalid_argument e) {
          status = 127;
       }
    }
@@ -170,7 +170,8 @@ void fn_ls (inode_state& state, const wordvec& words){
       ->get_dirents();
 
    if (words.size() <2 || dirents.find(words.at(1)) != dirents.end()
-      ||words.at(1) == "/") {
+      ||words.at(1) == "/" || words.at(1) == "." ||
+      words.at(1) == "..") {
       
       wordvec origword = words;
       bool isroot = false;
@@ -218,7 +219,9 @@ void fn_lsr (inode_state& state, const wordvec& words){
    auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
 
-   if (words.size() <2 || dirents.find(words.at(1)) != dirents.end()) {
+   if (words.size() <2 || dirents.find(words.at(1)) != dirents.end()
+      ||words.at(1) == "/" || words.at(1) == "." ||
+      words.at(1) == "..") {
 
       wordvec origword = words;
       inode_ptr temp = state.get_cwd_ptr();
