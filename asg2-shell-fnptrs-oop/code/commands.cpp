@@ -194,7 +194,7 @@ void fn_ls (inode_state& state, const wordvec& words){
          cout<<ls_pwd<<endl;
       } else { cout<<"/:"<<endl;}
 
-      if (words.at(1) == ".") {
+      if (words.size() > 1 && words.at(1) == ".") {
          return;
       }
 
