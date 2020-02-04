@@ -90,7 +90,7 @@ int main (int argc, char** argv) {
          }
       }
    } catch (ysh_exit& err) {
-      return err.get_status();
+      return exit_status_message(err.get_status());
    }
 
    return exit_status_message();
