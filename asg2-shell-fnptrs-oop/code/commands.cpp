@@ -135,7 +135,7 @@ void fn_pwd (inode_state& state, const wordvec& words){
    DEBUGF ('c', words);
    stack <string> the_pwd;
    inode_ptr the_inode = state.get_cwd_ptr();
-   cout<<the_inode->get_base_file_ptr()->get_name()<<endl;
+   cout<<"name"<<the_inode->get_base_file_ptr()->get_name()<<endl;
    while (the_inode->get_inode_nr() != state.get_root_ptr()
       ->get_inode_nr()){
       the_pwd.push(the_inode->get_base_file_ptr()->get_name());
