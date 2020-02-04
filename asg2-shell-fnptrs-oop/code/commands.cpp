@@ -68,18 +68,23 @@ void fn_cat (inode_state& state, const wordvec& words){
          deeper_cd_command.insert(deeper_cd_command.end(), "cd");
          deeper_cd_command.insert(deeper_cd_command.end(),
             list_of_words.at(word_iterator));
+         fn_cd(state, deeper_cd_command);
          counter++;
    }
    
 
+   //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
+   //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
+
    cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-      find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
+      find(list_of_words.at(list_of_words.size()-1))->second->get_base_file_ptr()->readfile()<<endl;
 
    for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
       word_iterator++) {
          wordvec shallower_cd_command;
          shallower_cd_command.insert(shallower_cd_command.end(), "cd");
          shallower_cd_command.insert(shallower_cd_command.end(), "..");
+         fn_cd(state, shallower_cd_command);
    }
 }
 
