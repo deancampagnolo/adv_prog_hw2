@@ -320,16 +320,22 @@ void fn_make (inode_state& state, const wordvec& words){
 }
 
 void fn_mkdir (inode_state& state, const wordvec& words){
-   
-   string s_target = clean_cd_to_command(state, words, false);
-   auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
+   auto dirents1 = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
-   if (words.size() > 1 && dirents.find(s_target) == dirents.end()) {
-      wordvec origword = words;
-      
-      state.get_cwd_ptr()->get_base_file_ptr()->mkdir(s_target);
-      cd_back_command(state, origword, false);
-   } else {
+   if (words.size() > 1 && dirents1.find(words.at(1)) == dirents1.end()) {
+   
+      string s_target = clean_cd_to_command(state, words, false);
+      auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
+         ->get_dirents();
+      if (words.size() > 1 && dirents.find(s_target) == dirents.end()) {
+         wordvec origword = words;
+
+         state.get_cwd_ptr()->get_base_file_ptr()->mkdir(s_target);
+         cd_back_command(state, origword, false);
+      } else {
+         complain()<<"Directory cannot be made"<<endl;
+      }
+   }else {
       complain()<<"Directory cannot be made"<<endl;
    }
 }
