@@ -231,6 +231,11 @@ void fn_lsr (inode_state& state, const wordvec& words){
    } else {
       state.set_cwd(temp);
    }
+
+   if (words.size() > 2) {
+      wordvec sub(words.begin()+1, words.end());
+      fn_lsr(state,sub);
+   }
 }
 
 void fn_make (inode_state& state, const wordvec& words){
