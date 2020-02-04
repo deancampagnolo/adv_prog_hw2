@@ -50,7 +50,6 @@ int exit_status_message() {
 void fn_comment (inode_state& state, const wordvec& words) {
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   cout << "this was ignored because its a comment!" << endl;
 }
 
 string clean_cd_to_command (inode_state& state, const wordvec& words,
@@ -72,20 +71,7 @@ string clean_cd_to_command (inode_state& state, const wordvec& words,
 
 void cd_back_command (inode_state& state, const wordvec& words,
    bool do_extra) {
-      /*
-   if (words.size() > 1) {
-      wordvec list_of_words = split(words.at(1),"/");
-      int size = do_extra ? list_of_words.size() : list_of_words.size()+1;
-      //YEAH THIS PROBABLY ISN"T GOOD
-      for (int word_iterator = 0; word_iterator<size;
-         word_iterator++) {
-            wordvec shallower_cd_command;
-            shallower_cd_command.insert(shallower_cd_command.end(), "cd");
-            shallower_cd_command.insert(shallower_cd_command.end(), "..");
-            fn_cd(state, shallower_cd_command);
-      }
-   }
-   */
+
   if (words.size() <= 1) { return;}
    wordvec list_of_words = split(words.at(1),"/");
    int size = do_extra ? list_of_words.size() : list_of_words.size()-1;
@@ -106,10 +92,7 @@ void fn_cat (inode_state& state, const wordvec& words){
    wordvec origword = words;
 
    string s_target = clean_cd_to_command(state, words, false);
-   
-   //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-   //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
-   cout<<"at least we here :/"<<endl;
+
    cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
       find(s_target)->second->get_base_file_ptr()->readfile()<<endl;
 
@@ -117,12 +100,9 @@ void fn_cat (inode_state& state, const wordvec& words){
 }
 
 void fn_cd (inode_state& state, const wordvec& words){
-   cout<<"wordsat"<<words.at(1)<<endl;
    if (words.size() > 1) {
       if (split(words.at(1),"/").size()>1) {
-         cout<<"b4"<<endl;
          clean_cd_to_command(state, words, true);
-         cout<<"aft"<<endl;
       } else {
          map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
          get_base_file_ptr()->get_dirents();
@@ -153,10 +133,20 @@ void fn_exit (inode_state& state, const wordvec& words){
 
 void fn_ls (inode_state& state, const wordvec& words){
    wordvec origword = words;
-   clean_cd_to_command(state, words, true);
+   bool isroot = false;
+   if (words.size()>1 && words.at(1) == "/") {
+      isroot = true;
+   }
 
-   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
-      get_base_file_ptr()->get_dirents();
+   map<string,inode_ptr> the_dirents;
+   if (!isroot) {
+      clean_cd_to_command(state, words, true);
+      the_dirents = state.get_cwd_ptr()->
+         get_base_file_ptr()->get_dirents();
+   } else {
+      the_dirents = state.get_root_ptr()->
+         get_base_file_ptr()->get_dirents();
+   }
 
    string ls_pwd = get_pwd(state,words).append(":");
    cout<<ls_pwd<<endl;
@@ -170,7 +160,10 @@ void fn_ls (inode_state& state, const wordvec& words){
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
    }
-   cd_back_command(state, origword, true);
+
+   if (!isroot){
+      cd_back_command(state, origword, true);
+   }
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
