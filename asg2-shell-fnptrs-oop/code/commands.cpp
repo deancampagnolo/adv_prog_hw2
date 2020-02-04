@@ -98,9 +98,10 @@ void fn_cd (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
 
-   string s_target = clean_cd_to_command(state, words);
+
 
    if (words.size() > 1) {
+      string s_target = clean_cd_to_command(state, words);
       the_dirents.find(s_target);
       state.set_cwd(the_dirents.find(s_target)->second);
    } else {
