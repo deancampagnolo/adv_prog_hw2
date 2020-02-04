@@ -1,5 +1,6 @@
 // $Id: util.cpp,v 1.14 2019-10-08 14:01:38-07 - - $
-
+//Aaron Swoiskin - aswoiski
+//Dean Campagnolo - dcampagn
 #include <cstdlib>
 #include <unistd.h>
 

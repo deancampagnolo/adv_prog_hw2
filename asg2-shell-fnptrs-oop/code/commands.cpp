@@ -1,5 +1,6 @@
 // $Id: commands.cpp,v 1.18 2019-10-08 13:55:31-07 - - $
-
+//Aaron Swoiskin - aswoiski
+//Dean Campagnolo - dcampagn
 #include "commands.h"
 #include "debug.h"
 #include "map"

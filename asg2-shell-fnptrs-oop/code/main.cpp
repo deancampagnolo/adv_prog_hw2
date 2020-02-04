@@ -1,5 +1,6 @@
 // $Id: main.cpp,v 1.10 2019-10-08 13:55:31-07 - - $
-
+//Aaron Swoiskin - aswoiski
+//Dean Campagnolo - dcampagn
 #include <cstdlib>
 #include <iostream>
 #include <string>

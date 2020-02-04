@@ -1,5 +1,6 @@
 // $Id: debug.cpp,v 1.15 2020-01-22 14:21:55-08 - - $
-
+//Aaron Swoiskin - aswoiski
+//Dean Campagnolo - dcampagn
 #include <climits>
 #include <iostream>
 #include <vector>
