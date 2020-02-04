@@ -131,7 +131,7 @@ void fn_prompt (inode_state& state, const wordvec& words){
    state.set_prompt_(append_from(1,words));
 }
 
-string get_pwd (inode_state& state, const wordvec& words) {
+string get_pwd (inode_state& state, const wordvec&) {
    wordvec the_pwd_vec;
    inode_ptr the_inode = state.get_cwd_ptr();
 
@@ -146,10 +146,11 @@ string get_pwd (inode_state& state, const wordvec& words) {
    string final_pwd = "/";
    for (int pwd_vec_iterator = the_pwd_vec.size()-1;
       pwd_vec_iterator >= 0; pwd_vec_iterator--) {
-      
+      if (pwd_vec_iterator != the_pwd_vec.size()-1) {
+         final_pwd.append("/");
+      }
       final_pwd.append(the_pwd_vec.at(pwd_vec_iterator));
    }
-   final_pwd.append(":");
    return final_pwd;
 }
 
