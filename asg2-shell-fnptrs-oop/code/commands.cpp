@@ -148,8 +148,10 @@ void fn_ls (inode_state& state, const wordvec& words){
          get_base_file_ptr()->get_dirents();
    }
 
-   string ls_pwd = get_pwd(state,words).append(":");
-   cout<<ls_pwd<<endl;
+   if (!isroot) {
+      string ls_pwd = get_pwd(state,words).append(":");
+      cout<<ls_pwd<<endl;
+   } else { cout<<"/:"<<endl;}
 
    for (auto pair : the_dirents) {
       string name = pair.first;
