@@ -63,9 +63,10 @@ wordvec split (const string& line, const string& delimiters) {
    DEBUGF ('u', words);
    return words;
 }
-
+/*
 //note: code taken from
-//https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-using-string-delimiter-standard-c
+//https://stackoverflow.com/questions/14265581/parse-split-a-string-in-c-
+//using-string-delimiter-standard-c
 vector<string> split (string s, string delimiter) {
     size_t pos_start = 0, pos_end, delim_len = delimiter.length();
     string token;
@@ -80,6 +81,7 @@ vector<string> split (string s, string delimiter) {
     res.push_back (s.substr (pos_start));
     return res;
 }
+*/
 
 ostream& complain() {
    exec::status (EXIT_FAILURE);
