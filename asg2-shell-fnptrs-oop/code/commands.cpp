@@ -93,7 +93,8 @@ void fn_cat (inode_state& state, const wordvec& words){
 
    string s_target = clean_cd_to_command(state, words, false);
 
-   auto dirents = state.get_cwd_ptr()->get_base_file_ptr()->get_dirents();
+   auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
+      ->get_dirents();
 
    if (dirents.find(s_target) != dirents.end() && dirents.find(s_target)
       ->second->get_base_file_ptr()->get_identity() ==
