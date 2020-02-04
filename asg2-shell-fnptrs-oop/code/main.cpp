@@ -89,8 +89,8 @@ int main (int argc, char** argv) {
             complain() << error.what() << endl;
          }
       }
-   } catch (ysh_exit&) {
-      // This catch intentionally left blank.
+   } catch (ysh_exit& err) {
+      return err.get_status();
    }
 
    return exit_status_message();

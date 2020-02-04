@@ -104,7 +104,7 @@ void fn_cat (inode_state& state, const wordvec& words){
          find(s_target)->second->get_base_file_ptr()->readfile()<<endl;
 
    } else {
-      cout<<"Cannot cat there"<<endl;
+      complain()<<"File does not exist"<<endl;
    }
    if (words.size() > 2) {
       wordvec sub(words.begin()+1, words.end());
@@ -126,7 +126,7 @@ void fn_cd (inode_state& state, const wordvec& words){
 
             state.set_cwd(the_dirents.find(words.at(1))->second);
          } else {
-            cout<<"Cannot cd there"<<endl;
+            complain()<<"Directory does not exist"<<endl;
          }
       }
    } else {
@@ -148,7 +148,16 @@ void fn_echo (inode_state& state, const wordvec& words){
 void fn_exit (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   throw ysh_exit();
+   
+   int status = 0;
+   if (words.size() > 1) {
+      try {
+         status = stoi(words.at(1));
+      } catch (exception e) {
+         status = 127;
+      }
+   }
+   throw ysh_exit(status);
 }
 
 void fn_ls (inode_state& state, const wordvec& words){
@@ -261,7 +270,7 @@ void fn_lsr (inode_state& state, const wordvec& words){
          state.set_cwd(temp);
       }
    } else {
-      cout<<"directory doesn't exist"<<endl;
+      complain()<<"directory doesn't exist"<<endl;
    }
    if (words.size() > 2) {
       wordvec sub(words.begin()+1, words.end());
