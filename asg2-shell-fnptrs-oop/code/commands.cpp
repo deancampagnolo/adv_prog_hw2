@@ -239,9 +239,9 @@ void fn_lsr (inode_state& state, const wordvec& words){
    auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
       ->get_dirents();
 
-   if (words.size() <2 || dirents.find(list_of_words.at(0)) != dirents.end()
-      ||words.at(1) == "/" || words.at(1) == "." ||
-      words.at(1) == "..") {
+   if (words.size() <2 || words.at(1) == "/" || words.at(1) == "." ||
+      words.at(1) == ".." || dirents.find(list_of_words.at(0)) !=
+      dirents.end()) {
 
       wordvec origword = words;
       inode_ptr temp = state.get_cwd_ptr();
