@@ -33,7 +33,6 @@ inode_state::inode_state() {
 
 inode_state::~inode_state() {
    root -> invalidate();
-   cout<<"placeholder"<<endl;
 }
 const string& inode_state::prompt() const { return prompt_; }
 
@@ -129,12 +128,10 @@ const wordvec& plain_file::readfile() const {
 }
 
 void plain_file::writefile (const wordvec& content) {
-   cout<<"we be out here writing: "<< append_from(0,content)<<endl;
    data = content;
 }
 
 directory::~directory() {
-   cout<<"destroyed"<<endl;
    for (auto pair : dirents) {
       if (!(pair.first == "." || pair.first == "..")) {
          pair.second->invalidate();
@@ -146,7 +143,6 @@ directory::~directory() {
 void directory::insert_default_dirents() {
    auto temp_current_shared = current_inode.lock();
    auto temp_parent_shared = temp_current_shared->get_parent().lock();
-   cout<<"insert_default_dirents ran"<<endl;
    dirents.insert({".",temp_current_shared});
    dirents.insert({"..",temp_parent_shared});
 }
@@ -166,7 +162,6 @@ void directory::remove (const string& filename) {
 }
 
 inode_ptr directory::mkdir (const string& dirname) {
-   cout<<"we here"<<endl;
    inode_ptr new_inode_ptr = 
       make_shared<inode>(file_type::DIRECTORY_TYPE);
    new_inode_ptr->set_parent(current_inode);
