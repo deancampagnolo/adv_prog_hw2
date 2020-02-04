@@ -96,6 +96,7 @@ class file_error: public runtime_error {
 
 class base_file {
    protected:
+      string name;
       base_file() = default;
       virtual const string& error_file_type() const = 0;
       weak_ptr<inode> current_inode;
@@ -115,6 +116,7 @@ class base_file {
       virtual map<string,inode_ptr> get_dirents();
       virtual void insert_default_dirents();
       virtual file_type get_identity() {return identity;}
+      virtual string get_name() {return name;}
 };
 
 // class plain_file -

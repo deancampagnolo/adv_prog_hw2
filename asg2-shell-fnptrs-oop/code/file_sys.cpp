@@ -172,6 +172,8 @@ inode_ptr directory::mkdir (const string& dirname) {
       file_type::DIRECTORY_TYPE);
 
    dirents.insert({dirname,new_inode_ptr});
+
+   name = dirname;
    // TODO(me) need to sort dirents
    DEBUGF ('i', dirname);
    return new_inode_ptr;
@@ -188,6 +190,8 @@ inode_ptr directory::mkfile (const string& filename,
    new_inode_ptr->set_plain_file_contents(contents);
 
    dirents.insert({filename, new_inode_ptr});
+
+   name = filename;
    DEBUGF ('i', filename);
    return nullptr;
 }

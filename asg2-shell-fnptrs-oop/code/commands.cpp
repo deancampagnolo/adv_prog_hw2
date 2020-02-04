@@ -3,6 +3,7 @@
 #include "commands.h"
 #include "debug.h"
 #include "map"
+#include <stack>
 
 command_hash cmd_hash {
    {"#"     , fn_comment},
@@ -132,7 +133,23 @@ void fn_prompt (inode_state& state, const wordvec& words){
 void fn_pwd (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
-   cout<<state<<endl;
+   stack <string> the_pwd;
+   inode_ptr the_inode = state.get_cwd_ptr();
+   while (the_inode->get_inode_nr() != state.get_root_ptr()
+      ->get_inode_nr()){
+      the_pwd.push(the_inode->get_base_file_ptr()->get_name());
+      the_inode = the_inode->get_parent().lock();
+   }
+   string final_pwd = "/";
+   int stack_size = the_pwd.size();
+   for (int stack_iterator = 0; stack_iterator < stack_size;
+      stack_iterator++) {
+      final_pwd.append(the_pwd.top());
+      the_pwd.pop();
+   }
+   final_pwd.append(":");
+   cout<<final_pwd<<endl;
+   
 }
 
 void fn_rm (inode_state& state, const wordvec& words){
