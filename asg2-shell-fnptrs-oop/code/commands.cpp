@@ -75,7 +75,7 @@ void fn_cat (inode_state& state, const wordvec& words){
 
    //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
    //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
-
+   cout<<"at least we here :/"<<endl;
    cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
       find(list_of_words.at(list_of_words.size()-1))->second->get_base_file_ptr()->readfile()<<endl;
 
