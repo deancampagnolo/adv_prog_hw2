@@ -121,7 +121,9 @@ void fn_lsr (inode_state& state, const wordvec& words){
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
 
-      if (pair.first != "." && pair.first != ".."){
+      if (pair.second->get_base_file_ptr()->get_identity() ==
+         file_type::DIRECTORY_TYPE && name != "." && name != "..") {
+            
          wordvec deeper_cd_command;
          deeper_cd_command.insert(deeper_cd_command.end(),"cd");
          deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
