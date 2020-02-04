@@ -106,7 +106,7 @@ void fn_ls (inode_state& state, const wordvec& words){
    
 }
 
-void fn_lsr (inode_state& state, const wordvec& words, bool one_shot = false){
+void fn_lsr (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
    string ls_pwd = get_pwd(state,words).append(":");
@@ -120,7 +120,20 @@ void fn_lsr (inode_state& state, const wordvec& words, bool one_shot = false){
       }
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
          ->get_base_file_ptr()->size()<<" "<<name<<endl;
-      
+
+      if (pair.first != "." && pair.first != ".."){
+         wordvec deeper_cd_command;
+         deeper_cd_command.insert(deeper_cd_command.end(),"cd");
+         deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
+         fn_cd(state,deeper_cd_command);
+         wordvec deeper_lsr_command;
+         deeper_lsr_command.insert(deeper_lsr_command.end(),"lsr");
+         fn_lsr(state,deeper_lsr_command);
+         wordvec shallower_cd_command;
+         shallower_cd_command.insert(shallower_cd_command.end(),"cd");
+         shallower_cd_command.insert(shallower_cd_command.end(),"..");
+      }
+
    }
 }
 
