@@ -153,6 +153,7 @@ void fn_ls (inode_state& state, const wordvec& words){
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
+   clean_cd_to_command(state, words, true);
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
    string ls_pwd = get_pwd(state,words).append(":");
@@ -183,12 +184,15 @@ void fn_lsr (inode_state& state, const wordvec& words){
       }
 
    }
+   cd_back_command(state, words, true);
 }
 
 void fn_make (inode_state& state, const wordvec& words){
+   string s_target = clean_cd_to_command(state, words, false);
    wordvec the_content(words.begin()+2, words.end());
-   state.get_cwd_ptr()->get_base_file_ptr()->mkfile(words.at(1),
+   state.get_cwd_ptr()->get_base_file_ptr()->mkfile(s_target,
       the_content);
+   cd_back_command(state, words, false);
 }
 
 void fn_mkdir (inode_state& state, const wordvec& words){
