@@ -173,7 +173,7 @@ inode_ptr directory::mkdir (const string& dirname) {
 
    dirents.insert({dirname,new_inode_ptr});
 
-   name = dirname;
+   new_inode_ptr->get_base_file_ptr()->set_name(dirname);
    // TODO(me) need to sort dirents
    DEBUGF ('i', dirname);
    return new_inode_ptr;
