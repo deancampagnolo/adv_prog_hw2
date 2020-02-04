@@ -83,13 +83,13 @@ void fn_cat (inode_state& state, const wordvec& words){
    DEBUGF ('c', state);
    DEBUGF ('c', words);
 
-   string target = clean_cd_to_command(state, words);
+   string s_target = clean_cd_to_command(state, words);
    
    //cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
    //   find(words.at(1))->second->get_base_file_ptr()->readfile()<<endl;
    cout<<"at least we here :/"<<endl;
    cout << state.get_cwd_ptr()->get_base_file_ptr()->get_dirents().
-      find(target)->second->get_base_file_ptr()->readfile()<<endl;
+      find(s_target)->second->get_base_file_ptr()->readfile()<<endl;
 
    cd_back_command(state, words);
 }
@@ -97,9 +97,12 @@ void fn_cat (inode_state& state, const wordvec& words){
 void fn_cd (inode_state& state, const wordvec& words){
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
+
+   string s_target = clean_cd_to_command(state, words);
+
    if (words.size() > 1) {
-      the_dirents.find(words.at(1));
-      state.set_cwd(the_dirents.find(words.at(1))->second);
+      the_dirents.find(s_target);
+      state.set_cwd(the_dirents.find(s_target)->second);
    } else {
       state.set_cwd(state.get_root_ptr());
    }
