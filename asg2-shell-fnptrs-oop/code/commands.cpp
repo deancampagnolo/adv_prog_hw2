@@ -71,13 +71,16 @@ string clean_cd_to_command (inode_state& state, const wordvec& words,
 }
 
 void cd_back_command (inode_state& state, const wordvec& words) {
-   wordvec list_of_words = split(words.at(1),"/");
-   for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
-      word_iterator++) {
-         wordvec shallower_cd_command;
-         shallower_cd_command.insert(shallower_cd_command.end(), "cd");
-         shallower_cd_command.insert(shallower_cd_command.end(), "..");
-         fn_cd(state, shallower_cd_command);
+
+   if (words.size() > 1) {
+      wordvec list_of_words = split(words.at(1),"/");
+      for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
+         word_iterator++) {
+            wordvec shallower_cd_command;
+            shallower_cd_command.insert(shallower_cd_command.end(), "cd");
+            shallower_cd_command.insert(shallower_cd_command.end(), "..");
+            fn_cd(state, shallower_cd_command);
+      }
    }
 }
 
