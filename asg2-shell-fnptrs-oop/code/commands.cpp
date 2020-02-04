@@ -327,7 +327,8 @@ void fn_mkdir (inode_state& state, const wordvec& words){
       list_of_words = split(words.at(1),"/");
    }
 
-   if (list_of_words.size() > 1 && dirents1.find(words.at(1)) != dirents1.end()) {
+   if (list_of_words.size() > 1 && dirents1.find(list_of_words.at(0))
+      != dirents1.end()) {
       complain()<<"Directory cannot be made"<<endl;
       return;
    }
