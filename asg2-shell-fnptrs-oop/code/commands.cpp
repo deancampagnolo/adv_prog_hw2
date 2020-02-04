@@ -98,7 +98,7 @@ void fn_ls (inode_state& state, const wordvec& words){
       //cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
       string name = pair.first;
       if (pair.second->get_base_file_ptr()->get_identity() ==
-         file_type::DIRECTORY_TYPE) {
+         file_type::DIRECTORY_TYPE && name != "." && name != "..") {
          name.append("/");
       }
       cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
