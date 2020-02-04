@@ -194,6 +194,10 @@ void fn_ls (inode_state& state, const wordvec& words){
          cout<<ls_pwd<<endl;
       } else { cout<<"/:"<<endl;}
 
+      if (words.at(1) == ".") {
+         return;
+      }
+
       for (auto pair : the_dirents) {
          string name = pair.first;
          if (pair.second->get_base_file_ptr()->get_identity() ==
