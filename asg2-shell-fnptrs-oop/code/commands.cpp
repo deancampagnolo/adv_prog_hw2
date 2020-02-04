@@ -129,10 +129,10 @@ void fn_exit (inode_state& state, const wordvec& words){
 }
 
 void fn_ls (inode_state& state, const wordvec& words){
+   clean_cd_to_command(state, words, true);
+
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
-   
-   clean_cd_to_command(state, words, true);
 
    string ls_pwd = get_pwd(state,words).append(":");
    cout<<ls_pwd<<endl;
