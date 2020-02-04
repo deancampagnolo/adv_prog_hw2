@@ -47,6 +47,11 @@ int exit_status_message() {
    return status;
 }
 
+int exit_status_message(int status) {
+   cout << exec::execname() << ": exit(" << status << ")" << endl;
+   return status;
+}
+
 void fn_comment (inode_state& state, const wordvec& words) {
    DEBUGF ('c', state);
    DEBUGF ('c', words);
@@ -270,7 +275,7 @@ void fn_lsr (inode_state& state, const wordvec& words){
          state.set_cwd(temp);
       }
    } else {
-      complain()<<"directory doesn't exist"<<endl;
+      complain()<<"Directory doesn't exist"<<endl;
    }
    if (words.size() > 2) {
       wordvec sub(words.begin()+1, words.end());

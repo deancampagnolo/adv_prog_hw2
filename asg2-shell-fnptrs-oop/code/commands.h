@@ -54,6 +54,7 @@ command_fn find_command_fn (const string& command);
 //    by any of the functions.
 
 int exit_status_message();
+int exit_status_message(int status);
 class ysh_exit: public exception {
    private:
       int status_;
