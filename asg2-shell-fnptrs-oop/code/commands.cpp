@@ -70,11 +70,14 @@ string clean_cd_to_command (inode_state& state, const wordvec& words,
    return list_of_words.at(list_of_words.size()-1);
 }
 
-void cd_back_command (inode_state& state, const wordvec& words) {
+void cd_back_command (inode_state& state, const wordvec& words,
+   bool do_extra) {
 
    if (words.size() > 1) {
       wordvec list_of_words = split(words.at(1),"/");
-      for (int word_iterator = 0; word_iterator<list_of_words.size()-1;
+      int size = do_extra ? list_of_words.size() : list_of_words.size()+1;
+      //YEAH THIS PROBABLY ISN"T GOOD
+      for (int word_iterator = 0; word_iterator<size;
          word_iterator++) {
             wordvec shallower_cd_command;
             shallower_cd_command.insert(shallower_cd_command.end(), "cd");
