@@ -193,7 +193,8 @@ inode_ptr directory::mkfile (const string& filename,
 
    dirents.insert({filename, new_inode_ptr});
 
-   name = filename;
+   new_inode_ptr->get_base_file_ptr()->set_name(filename);
+
    DEBUGF ('i', filename);
    return nullptr;
 }
