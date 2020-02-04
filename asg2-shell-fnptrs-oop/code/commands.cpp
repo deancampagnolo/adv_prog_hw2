@@ -225,14 +225,17 @@ void fn_lsr (inode_state& state, const wordvec& words){
             file_type::DIRECTORY_TYPE && name != "." && name != "..") {
             wordvec deeper_cd_command;
             deeper_cd_command.insert(deeper_cd_command.end(),"cd");
-            deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
+            deeper_cd_command.insert(deeper_cd_command.end(),pair.
+               first);
             fn_cd(state,deeper_cd_command);
             wordvec deeper_lsr_command;
             deeper_lsr_command.insert(deeper_lsr_command.end(),"lsr");
             fn_lsr(state,deeper_lsr_command);
             wordvec shallower_cd_command;
-            shallower_cd_command.insert(shallower_cd_command.end(),"cd");
-            shallower_cd_command.insert(shallower_cd_command.end(),"..");
+            shallower_cd_command.insert(shallower_cd_command.end(),
+               "cd");
+            shallower_cd_command.insert(shallower_cd_command.end(),
+               "..");
             fn_cd(state,shallower_cd_command);
          }
 
