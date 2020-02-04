@@ -89,19 +89,16 @@ void fn_exit (inode_state& state, const wordvec& words){
 }
 
 void fn_ls (inode_state& state, const wordvec& words){
-   cout << state << endl;
-   cout<<get_pwd(state,words)<<endl;
-
    map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
       get_base_file_ptr()->get_dirents();
-   cout<<&the_dirents<<endl;
-   cout<<"length " << the_dirents.size()<<endl;
+   string ls_pwd = get_pwd(state,words).append(":");
+   cout<<ls_pwd<<endl;
+
    for (auto pair : the_dirents) {
-      cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
+      //cout<<"1: "<<pair.first<<" 2: "<<pair.second<<"\n"<<endl;
+      cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second->get_base_file_ptr()->size()<<endl;
    }
    
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
@@ -110,24 +107,16 @@ void fn_lsr (inode_state& state, const wordvec& words){
 }
 
 void fn_make (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
    wordvec the_content(words.begin()+2, words.end());
    state.get_cwd_ptr()->get_base_file_ptr()->mkfile(words.at(1),
       the_content);
 }
 
 void fn_mkdir (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
    state.get_cwd_ptr()->get_base_file_ptr()->mkdir(words.at(1));
 }
 
 void fn_prompt (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
-   cout <<"printing vector " <<words << endl;
-   
    state.set_prompt_(append_from(1,words));
 }
 
@@ -155,14 +144,10 @@ string get_pwd (inode_state& state, const wordvec&) {
 }
 
 void fn_pwd (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
    cout<<get_pwd(state,words)<<endl;
 }
 
 void fn_rm (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words); 
    inode_ptr target = state.get_cwd_ptr()->get_base_file_ptr()
    ->get_dirents().find(words.at(1))->second;
 
@@ -177,8 +162,6 @@ void fn_rm (inode_state& state, const wordvec& words){
 }
 
 void fn_rmr (inode_state& state, const wordvec& words){
-   DEBUGF ('c', state);
-   DEBUGF ('c', words);
    state.get_cwd_ptr()->get_base_file_ptr()->remove(words.at(1));
 }
 

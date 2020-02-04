@@ -117,8 +117,10 @@ void base_file::insert_default_dirents() {
 }
 
 size_t plain_file::size() const {
-   size_t size {0};
-   DEBUGF ('i', "size = " << size);
+   size_t size = data.size();
+   for (string individual_string : data) {
+      size += individual_string.size();
+   }
    return size;
 }
 
@@ -150,7 +152,7 @@ void directory::insert_default_dirents() {
 }
 
 size_t directory::size() const {
-   size_t size {0};
+   size_t size = dirents.size();
    DEBUGF ('i', "size = " << size);
    return size;
 }
