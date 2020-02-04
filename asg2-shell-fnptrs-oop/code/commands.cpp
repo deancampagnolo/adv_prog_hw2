@@ -133,6 +133,7 @@ void fn_lsr (inode_state& state, const wordvec& words){
          wordvec shallower_cd_command;
          shallower_cd_command.insert(shallower_cd_command.end(),"cd");
          shallower_cd_command.insert(shallower_cd_command.end(),"..");
+         fn_cd(state,shallower_cd_command);
       }
 
    }
