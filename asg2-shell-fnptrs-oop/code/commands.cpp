@@ -185,53 +185,62 @@ void fn_ls (inode_state& state, const wordvec& words){
 }
 
 void fn_lsr (inode_state& state, const wordvec& words){
-   wordvec origword = words;
-   inode_ptr temp = state.get_cwd_ptr();
-   bool isroot = false;
-   if (words.size()>1 && words.at(1) == "/") {
-      isroot = true;
-   }
-   if (!isroot) {
-      clean_cd_to_command(state, words, true);
-   } else {
-      state.set_cwd(state.get_root_ptr());
-   }
-   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
-      get_base_file_ptr()->get_dirents();
-   string ls_pwd = get_pwd(state,words).append(":");
-   cout<<ls_pwd<<endl;
 
-   for (auto pair : the_dirents) {
-      string name = pair.first;
-      if (pair.second->get_base_file_ptr()->get_identity() ==
-         file_type::DIRECTORY_TYPE && name != "." && name != "..") {
-         name.append("/");
+   auto dirents = state.get_cwd_ptr()->get_base_file_ptr()
+      ->get_dirents();
+
+   if (dirents.find(words.at(1)) != dirents.end()) {
+
+      wordvec origword = words;
+      inode_ptr temp = state.get_cwd_ptr();
+
+      bool isroot = false;
+      if (words.size()>1 && words.at(1) == "/") {
+         isroot = true;
       }
-      cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
-         ->get_base_file_ptr()->size()<<" "<<name<<endl;
-
-      if (pair.second->get_base_file_ptr()->get_identity() ==
-         file_type::DIRECTORY_TYPE && name != "." && name != "..") {
-         wordvec deeper_cd_command;
-         deeper_cd_command.insert(deeper_cd_command.end(),"cd");
-         deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
-         fn_cd(state,deeper_cd_command);
-         wordvec deeper_lsr_command;
-         deeper_lsr_command.insert(deeper_lsr_command.end(),"lsr");
-         fn_lsr(state,deeper_lsr_command);
-         wordvec shallower_cd_command;
-         shallower_cd_command.insert(shallower_cd_command.end(),"cd");
-         shallower_cd_command.insert(shallower_cd_command.end(),"..");
-         fn_cd(state,shallower_cd_command);
+      if (!isroot) {
+         clean_cd_to_command(state, words, true);
+      } else {
+         state.set_cwd(state.get_root_ptr());
       }
+      map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
+         get_base_file_ptr()->get_dirents();
+      string ls_pwd = get_pwd(state,words).append(":");
+      cout<<ls_pwd<<endl;
 
-   }
-   if (!isroot) {
-      cd_back_command(state, origword, true);
+      for (auto pair : the_dirents) {
+         string name = pair.first;
+         if (pair.second->get_base_file_ptr()->get_identity() ==
+            file_type::DIRECTORY_TYPE && name != "." && name != "..") {
+            name.append("/");
+         }
+         cout<<"\t"<<pair.second->get_inode_nr()<<"\t"<<pair.second
+            ->get_base_file_ptr()->size()<<" "<<name<<endl;
+
+         if (pair.second->get_base_file_ptr()->get_identity() ==
+            file_type::DIRECTORY_TYPE && name != "." && name != "..") {
+            wordvec deeper_cd_command;
+            deeper_cd_command.insert(deeper_cd_command.end(),"cd");
+            deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
+            fn_cd(state,deeper_cd_command);
+            wordvec deeper_lsr_command;
+            deeper_lsr_command.insert(deeper_lsr_command.end(),"lsr");
+            fn_lsr(state,deeper_lsr_command);
+            wordvec shallower_cd_command;
+            shallower_cd_command.insert(shallower_cd_command.end(),"cd");
+            shallower_cd_command.insert(shallower_cd_command.end(),"..");
+            fn_cd(state,shallower_cd_command);
+         }
+
+      }
+      if (!isroot) {
+         cd_back_command(state, origword, true);
+      } else {
+         state.set_cwd(temp);
+      }
    } else {
-      state.set_cwd(temp);
+      cout<<"directory doesn't exist"<<endl;
    }
-
    if (words.size() > 2) {
       wordvec sub(words.begin()+1, words.end());
       fn_lsr(state,sub);
