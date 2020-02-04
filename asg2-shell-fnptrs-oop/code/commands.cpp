@@ -123,7 +123,6 @@ void fn_lsr (inode_state& state, const wordvec& words){
 
       if (pair.second->get_base_file_ptr()->get_identity() ==
          file_type::DIRECTORY_TYPE && name != "." && name != "..") {
-            
          wordvec deeper_cd_command;
          deeper_cd_command.insert(deeper_cd_command.end(),"cd");
          deeper_cd_command.insert(deeper_cd_command.end(),pair.first);
