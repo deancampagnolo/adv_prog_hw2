@@ -144,7 +144,7 @@ string get_pwd (inode_state& state, const wordvec&) {
    }
 
    string final_pwd = "/";
-   for (int pwd_vec_iterator = the_pwd_vec.size()-1;
+   for (long unsigned int pwd_vec_iterator = the_pwd_vec.size()-1;
       pwd_vec_iterator >= 0; pwd_vec_iterator--) {
       if (pwd_vec_iterator != the_pwd_vec.size()-1) {
          final_pwd.append("/");
