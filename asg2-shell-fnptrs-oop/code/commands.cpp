@@ -170,11 +170,25 @@ void fn_ls (inode_state& state, const wordvec& words){
 
 void fn_lsr (inode_state& state, const wordvec& words){
    wordvec origword = words;
-   clean_cd_to_command(state, words, true);
-   map<string,inode_ptr> the_dirents = state.get_cwd_ptr()->
-      get_base_file_ptr()->get_dirents();
-   string ls_pwd = get_pwd(state,words).append(":");
-   cout<<ls_pwd<<endl;
+   bool isroot = false;
+   if (words.size()>1 && words.at(1) == "/") {
+      isroot = true;
+   }
+
+   map<string,inode_ptr> the_dirents;
+   if (!isroot) {
+      clean_cd_to_command(state, words, true);
+      the_dirents = state.get_cwd_ptr()->
+         get_base_file_ptr()->get_dirents();
+   } else {
+      the_dirents = state.get_root_ptr()->
+         get_base_file_ptr()->get_dirents();
+   }
+
+   if (!isroot) {
+      string ls_pwd = get_pwd(state,words).append(":");
+      cout<<ls_pwd<<endl;
+   } else { cout<<"/:"<<endl;}
 
    for (auto pair : the_dirents) {
       string name = pair.first;
@@ -201,7 +215,9 @@ void fn_lsr (inode_state& state, const wordvec& words){
       }
 
    }
-   cd_back_command(state, origword, true);
+   if (!isroot) {
+      cd_back_command(state, origword, true);
+   }
 }
 
 void fn_make (inode_state& state, const wordvec& words){
